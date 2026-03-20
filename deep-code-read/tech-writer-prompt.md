@@ -112,6 +112,7 @@ Follow these guidelines to determine if multiple files are needed.
 
 Strictly avoid vague or incomplete analyses by adhering to these rules.
 
+- **Language (CRITICAL)**: The final output document MUST be written entirely in English.
 - You MUST read every file in the module, not just the "main" ones
 - You MUST include specific function names and file paths, not "there's a function that..."
 - You MUST explain design decisions, not just describe what code does
