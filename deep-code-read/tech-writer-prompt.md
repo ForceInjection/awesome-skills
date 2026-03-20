@@ -8,7 +8,7 @@ This section defines the boundaries and target context for your deep reading tas
 
 - **Source repo**: `{source-dir}`
 - **Module to read**: `{module-dir}`
-- **Output location**: `{output-dir}/{project-name}-dr-{module-name}/`
+- **Output location**: `{output-dir}/{project-name}-fj-{module-name}/`
 - **Project**: `{project-name}` (tracking `{ref}`)
 
 ## 2. Iteration Feedback (If applicable)
@@ -79,7 +79,7 @@ Use the following template for the document metadata and the beginning of the fi
 
 ```markdown
 ---
-name: {project-name}-dr-{module-name}
+name: {project-name}-fj-{module-name}
 description: Use when working with the {module-name} module of {project-name} — [one line about what this module does]
 ---
 

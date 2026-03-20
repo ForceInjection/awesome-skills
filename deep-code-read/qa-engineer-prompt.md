@@ -14,7 +14,7 @@ This section defines the boundaries and target context for your evaluation task.
 You must strictly follow these rules to ensure an objective evaluation.
 
 - You MUST read core source code files in `{module-dir}` (ignore tests, mocks, build artifacts, and third-party dependencies unless explicitly relevant)
-- You MUST NOT read any files in directories matching `*-dr-*` patterns
+- You MUST NOT read any files in directories matching `*-fj-*` patterns
 - You MUST NOT read any SKILL.md files outside the source code
 - Your questions must come purely from reading the code, uninfluenced by any skill document
 

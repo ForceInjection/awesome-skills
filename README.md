@@ -18,7 +18,7 @@
 # 触发深度代码阅读工作流
 # 参数 source: 本地路径或 GitHub 仓库地址
 # 参数 output-dir: 技能文件的输出根目录
-# 注意：该工作流会在 output-dir 下为每个识别出的模块生成一个独立目录（如 {project-name}-dr-{module-name}），并包含对应的 SKILL.md 等技能文件。
+# 注意：该工作流会在 output-dir 下为每个识别出的模块生成一个独立目录（如 {project-name}-fj-{module-name}），并包含对应的 SKILL.md 等技能文件。
 /deep-code-read <source> <output-dir>
 ```
 
@@ -37,7 +37,7 @@
 # 注意：该工作流会在 output-dir 下生成以下内容：
 # 1. 最终输出文件：<actual-project-name>-WHITEPAPER.md（包含 8 个标准章节的综合性白皮书文档）
 # 2. 中间分析文件（基础设施）：由 DevOps 工程师提取生成的构建、测试和部署策略报告
-# 3. 中间分析文件（代码模块）：底层调用的 deep-code-read 生成的各个模块独立目录（如 {project-name}-dr-{module-name}）及包含的 SKILL.md
+# 3. 中间分析文件（代码模块）：底层调用的 deep-code-read 生成的各个模块独立目录（如 {project-name}-fj-{module-name}）及包含的 SKILL.md
 /deep-project-analysis <source> <output-dir>
 ```
 

@@ -87,7 +87,7 @@ For each selected module, dispatch a subagent with the prompt template from `tec
 - `{module-name}`: the module name
 - `{ref}`: the tracked tag/branch
 
-After Tech Writer completes, verify the skill files were written to `{output-dir}/{project-name}-dr-{module-name}/`. Update the module's task status.
+After Tech Writer completes, verify the skill files were written to `{output-dir}/{project-name}-fj-{module-name}/`. Update the module's task status.
 
 ### 3.4 Phase 4: Verify (ABC Loop)
 
@@ -194,7 +194,7 @@ Present the recommended questions collected from Phase 4:
 
 When answering user questions in this phase:
 
-- Read ONLY the generated skill files in `{output-dir}/{project-name}-dr*/`
+- Read ONLY the generated skill files in `{output-dir}/{project-name}-fj*/`
 - Do NOT read source code
 - If you cannot answer a question from the skills alone, say so honestly — this indicates a gap
 
