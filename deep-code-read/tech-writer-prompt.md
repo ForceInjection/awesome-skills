@@ -112,7 +112,7 @@ Follow these guidelines to determine if multiple files are needed.
 
 Strictly avoid vague or incomplete analyses by adhering to these rules.
 
-- **Language (CRITICAL)**: The final output document MUST be written entirely in English.
+- **Language (CRITICAL)**: The final output document MUST be written entirely in English. Do NOT mix English and Chinese. Do NOT use dual-language titles (e.g., `## 1. 模块概述 (Module Overview)` is strictly forbidden). If the source code contains Chinese comments, translate them and explain them in English.
 - You MUST read every file in the module, not just the "main" ones
 - You MUST include specific function names and file paths, not "there's a function that..."
 - You MUST explain design decisions, not just describe what code does
