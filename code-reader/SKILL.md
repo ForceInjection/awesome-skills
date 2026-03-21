@@ -1,5 +1,5 @@
 ---
-name: deep-code-read
+name: code-reader
 description: Use when you want to deeply understand an unfamiliar codebase and generate reusable cognitive skills from it, by providing a local path or GitHub URL
 ---
 

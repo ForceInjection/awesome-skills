@@ -1,11 +1,11 @@
 ---
-name: deep-project-analysis
+name: project-analyzer
 description: Generate a comprehensive project documentation (whitepaper) based on deep codebase analysis, covering architecture, modules, testing, and deployment.
 ---
 
 # Deep Project Analysis
 
-This skill extends the core mechanics of `deep-code-read` to systematically analyze an entire repository and synthesize a comprehensive "Project Whitepaper". It combines deep module-level understanding with high-level architectural synthesis and engineering practices (build, test, deploy).
+This skill extends the core mechanics of `code-reader` to systematically analyze an entire repository and synthesize a comprehensive "Project Whitepaper". It combines deep module-level understanding with high-level architectural synthesis and engineering practices (build, test, deploy).
 
 The final output focuses heavily on Architecture & Module Deep Dives (approx. 60%), supported by practical Engineering & Operations guides.
 
@@ -13,16 +13,16 @@ The final output focuses heavily on Architecture & Module Deep Dives (approx. 60
 
 This workflow employs specialized agents to gather distinct types of information before synthesizing the final document:
 
-- **Agent A (Tech Writer)**: The module expert. **This role is directly fulfilled by invoking the `deep-code-read` skill.** It reads source code to extract module-level capabilities, data structures, and state flows, ensuring high accuracy through its built-in ABC verification loop.
+- **Agent A (Tech Writer)**: The module expert. **This role is directly fulfilled by invoking the `code-reader` skill.** It reads source code to extract module-level capabilities, data structures, and state flows, ensuring high accuracy through its built-in ABC verification loop.
 - **Agent B (DevOps Engineer)**: The infrastructure expert. Scans configuration files (Makefiles, Dockerfiles, CI/CD pipelines, `package.json`, etc.) to extract build, test, and deployment practices.
-- **Agent C (Chief Architect)**: The synthesizer. Reads all outputs from the `deep-code-read` module skills and the DevOps Engineer to author the final Comprehensive Project Documentation, ensuring a coherent narrative and architectural accuracy.
+- **Agent C (Chief Architect)**: The synthesizer. Reads all outputs from the `code-reader` module skills and the DevOps Engineer to author the final Comprehensive Project Documentation, ensuring a coherent narrative and architectural accuracy.
 
-**REQUIRED SUB-SKILL:** You MUST use the `deep-code-read` skill as the engine for Phase 2.
+**REQUIRED SUB-SKILL:** You MUST use the `code-reader` skill as the engine for Phase 2.
 
 ## 2. Usage
 
 ```bash
-/deep-project-analysis <source> <output-dir>
+/project-analyzer <source> <output-dir>
 ```
 
 - **source**: local path (e.g., `./path/to/repo`) or GitHub URL
@@ -42,13 +42,13 @@ This initial phase handles the resolution and preparation of the target source c
    - **Infra Files**: Build scripts, Dockerfiles, CI/CD workflows, config files.
 3. Generate an initial dependency graph between modules.
 
-### 3.2 Phase 2: Deep Module Reading (via `deep-code-read`)
+### 3.2 Phase 2: Deep Module Reading (via `code-reader`)
 
-This phase delegates the heavy lifting of code comprehension to the `deep-code-read` skill.
+This phase delegates the heavy lifting of code comprehension to the `code-reader` skill.
 
-For each identified core module, **invoke the `deep-code-read` skill** targeting that specific module directory.
+For each identified core module, **invoke the `code-reader` skill** targeting that specific module directory.
 
-- The `deep-code-read` skill will run its Tech Writer -> QA Engineer -> Junior Dev verification loop.
+- The `code-reader` skill will run its Tech Writer -> QA Engineer -> Junior Dev verification loop.
 - Collect the generated, fully-verified `SKILL.md` files for each module.
   _Note: This phase focuses purely on code, logic, and data structures._
 
