@@ -72,7 +72,7 @@ Dispatch the Chief Architect agent by **reading and strictly following** `chief-
 - **Instruction constraints**:
   - The Architect MUST allocate approximately 60% of the document's depth and length to System Architecture and Core Modules, and the remaining 40% to Project Overview, Scenarios, and Engineering Practices.
   - **Diagrams**: You MUST output Mermaid syntax for architecture diagrams, flowcharts, and sequence diagrams as explicitly required in the Chief Architect prompt.
-- **Output**: `<actual-project-name>-DEEP-DIVE.md` written to the `<output-dir>`. The document MUST follow this exact 7-chapter outline:
+- **Output**: `<actual-project-name>-deep-dive.md` written to the `<output-dir>`. The document MUST follow this exact 7-chapter outline:
   1. 项目全局摘要 (Project Executive Summary)
   2. 系统架构分析 (System Architecture Analysis)
   3. 核心模块代码深度解析 (Core Modules Deep Dive)
@@ -83,9 +83,9 @@ Dispatch the Chief Architect agent by **reading and strictly following** `chief-
 
 ### 3.5 Phase 5: User Acceptance & Review
 
-Present the generated `<actual-project-name>-DEEP-DIVE.md` to the user.
+Present the generated `<actual-project-name>-deep-dive.md` to the user.
 
-> "The Project Architecture Deep Dive has been generated. Please review `<actual-project-name>-DEEP-DIVE.md`. Let me know if you want to drill down into any specific module details or adjust the weight of any section."
+> "The Project Architecture Deep Dive has been generated. Please review `<actual-project-name>-deep-dive.md`. Let me know if you want to drill down into any specific module details or adjust the weight of any section."
 
 ## 4. Key Rules
 

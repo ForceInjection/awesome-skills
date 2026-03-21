@@ -19,7 +19,7 @@ You must allocate the length and depth of the document according to the followin
 
 ## 3. What You Must Produce
 
-You must output a single Markdown file named `{project-name}-DEEP-DIVE.md`. Follow this exact structure:
+You must output a single Markdown file named `{project-name}-deep-dive.md`. Follow this exact structure:
 
 ### 3.1 1. 项目全局摘要 (Project Executive Summary)
 

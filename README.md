@@ -37,7 +37,7 @@
 # 参数 source: 本地路径或 GitHub 仓库地址
 # 参数 output-dir: 深度分析报告及中间分析文件的输出目录
 # 注意：该工作流会在 output-dir 下生成以下内容：
-# 1. 最终输出文件：<actual-project-name>-DEEP-DIVE.md（包含 7 个标准章节的综合性深度分析报告）
+# 1. 最终输出文件：<actual-project-name>-deep-dive.md（包含 7 个标准章节的综合性深度分析报告）
 # 2. 中间分析文件（基础设施）：由 DevOps 工程师提取生成的构建、测试和部署策略报告
 # 3. 中间分析文件（代码模块）：底层调用的 code-reader 生成的各个模块独立目录（如 {project-name}-fj-{module-name}）及包含的 SKILL.md
 /project-analyzer <source> <output-dir>
