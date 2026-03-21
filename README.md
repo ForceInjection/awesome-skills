@@ -85,6 +85,20 @@
 /web-summarizer https://example.com/article1 https://example.com/article2
 ```
 
+### 1.6 代码提交助手
+
+`update-submitter` 技能旨在自动分析本地代码仓库的变更，将相关联的文件修改进行逻辑分组，并生成符合 Conventional Commits 规范的提交信息。
+
+该技能通过分析 `git status` 与 `git diff` 的输出，智能识别不同类型的变更（如功能开发、问题修复、文档更新等）。在为每个逻辑分组生成标准化的提交信息后，它会先向用户展示完整的提议计划，并在获取明确授权后自动执行提交操作。这有效保持了 Git 历史的整洁与规范。
+
+使用示例如下：
+
+```bash
+# 触发代码提交工作流
+# 可选参数：目标项目目录（默认为当前执行目录）
+/update-submitter [/path/to/project]
+```
+
 ---
 
 ## 2. 核心设计理念
