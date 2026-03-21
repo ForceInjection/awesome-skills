@@ -99,6 +99,20 @@
 /update-submitter [/path/to/project]
 ```
 
+### 1.7 Agent Skill 审查器
+
+`agent-skill-reviewer` 技能旨在自动审查和验证用户编写的 Agent Skill 目录结构与 `SKILL.md` 文件，确保其符合最佳实践与核心规范。
+
+该技能通过分析目标技能的目录命名、文件结构（如是否按关注点分离）、YAML Frontmatter（如描述是否遵循“功能 + 触发场景 + 关键词”公式）以及核心指令的清晰度。审查完成后，会输出一份包含目录结构、元数据、指令逻辑与改进建议的结构化审查报告，帮助开发者规范技能的编写。
+
+使用示例如下：
+
+```bash
+# 触发 Agent Skill 审查工作流
+# 根据用户对话中指定的技能目录进行审查。
+/agent-skill-reviewer
+```
+
 ---
 
 ## 2. 核心设计理念
