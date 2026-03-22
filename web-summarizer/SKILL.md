@@ -43,6 +43,17 @@ If Jina Reader fails, or for the following domains known to block scrapers or re
    - Use `take_snapshot` to get the accessibility tree text.
    - Scroll and snapshot again if content is truncated.
 
+#### Method 3: Headless Browser (Playwright)
+
+For extremely stubborn pages with heavy anti-bot protections or complex Single Page Applications (SPAs) where both Jina Reader and standard fetch fail, utilize a Playwright script if the environment permits running scripts:
+
+1. Check if `playwright` is installed in the current environment. If missing, install it (e.g., `npm i -D playwright` or `pip install playwright`).
+2. Create a short script using `playwright`.
+3. Launch the browser in headless mode.
+4. Navigate to the target URL and wait for the network to be idle or specific DOM elements to load.
+5. Extract the `document.body.innerText` or specific article containers.
+6. Return the extracted text to the agent for summarization.
+
 ### Step 2: Analyze Content
 
 For each page, produce a structured analysis in Chinese with these sections. The output must be professional, objective, and insightful.
