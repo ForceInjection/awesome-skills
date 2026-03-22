@@ -6,11 +6,11 @@
 
 ```mermaid
 graph TD
-    Client[HTTP Client] --> API[HTTP Layer / Controllers]
-    API --> Service[Service Layer / Use Cases]
-    Service --> Domain[Domain Layer / Entities]
-    Service --> Repo[Repository Layer]
-    Repo --> Store[Data Store (Memory/File)]
+    Client["HTTP Client"] --> API["HTTP Layer / Controllers"]
+    API --> Service["Service Layer / Use Cases"]
+    Service --> Domain["Domain Layer / Entities"]
+    Service --> Repo["Repository Layer"]
+    Repo --> Store["Data Store (Memory/File)"]
 ```
 
 ### Layers
