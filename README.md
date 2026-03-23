@@ -28,6 +28,8 @@
 - [4. 深度解析案例](#4-深度解析案例)
   - [4.1 gstack 项目深度解析](#41-gstack-项目深度解析)
   - [4.2 五种智能体技能设计模式](#42-五种智能体技能设计模式)
+- [5. 推荐参考资源](#5-推荐参考资源)
+  - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
 
 ---
 
@@ -297,3 +299,19 @@
 - **管道模式 (Pipeline)**：通过硬检查点强制执行严格的多步骤工作流。
 
 详细内容请阅读：[每位 ADK 开发者都应掌握的五种智能体技能设计模式](./google-skill-patern.md)
+
+---
+
+## 5. 推荐参考资源
+
+本章节推荐其他优秀的智能体技能合集与相关项目，以供开发者在不同业务场景下参考与借鉴。
+
+### 5.1 MiniMax-AI 官方技能库
+
+[MiniMax-AI/skills](https://github.com/MiniMax-AI/skills) 是由 MiniMax 官方维护的优秀技能合集。该项目涵盖了从前端开发到复杂办公文档生成的广泛场景，为开发者提供了丰富的实战参考。
+
+其核心技能模块包括：
+
+- **全栈与客户端开发**：涵盖前端 (`frontend-dev`)、全栈 (`fullstack-dev`)、Android (`android-native-dev`) 以及 iOS (`ios-application-dev`) 的系统性开发指南与规范。
+- **多媒体与创意生成**：提供着色器开发 (`shader-dev`) 与 GIF 动图生成 (`gif-sticker-maker`) 技能，结合 MiniMax 的图像和视频生成 API，实现高级视觉效果。
+- **专业文档处理**：包含针对 PDF (`minimax-pdf`)、PPTX (`pptx-generator`)、Excel (`minimax-xlsx`) 和 DOCX (`minimax-docx`) 的深度处理技能，支持从零生成、模板填充与格式重构。
