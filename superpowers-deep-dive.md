@@ -1,4 +1,4 @@
-# superpowers 深度解析
+# 让 AI 变成工程团队：superpowers 工作流的架构与实战深度解析
 
 ## 目录
 
