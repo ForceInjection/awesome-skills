@@ -31,6 +31,7 @@
   - [4.3 superpowers 深度解析](#43-superpowers-深度解析)
 - [5. 推荐参考资源](#5-推荐参考资源)
   - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
+- [6. Skill 单元测试](#6-skill-单元测试)
 
 ---
 
@@ -285,7 +286,7 @@
 - **21 个核心技能全景**：覆盖产品规划、质量保障、发布运营等完整生命周期。
 - **Prompt 工程最佳实践**：如防御性设计、跨阶段上下文继承以及注入专家级思维模式。
 
-详细内容请阅读：[gstack 项目深度解析报告](./gstack-deep-dive.md)
+详细内容请阅读：[gstack 项目深度解析报告](./docs/gstack-deep-dive.md)
 
 ### 4.2 五种智能体技能设计模式
 
@@ -299,11 +300,11 @@
 - **反转模式 (Inversion)**：让 Agent 扮演面试官，在收集完整上下文前阻止执行。
 - **管道模式 (Pipeline)**：通过硬检查点强制执行严格的多步骤工作流。
 
-详细内容请阅读：[每位 ADK 开发者都应掌握的五种智能体技能设计模式](./google-skill-patern.md)
+详细内容请阅读：[每位 ADK 开发者都应掌握的五种智能体技能设计模式](./docs/google-skill-patern.md)
 
 ### 4.3 superpowers 深度解析
 
-该文档对 superpowers 插件与技能体系进行系统化的工程解析与实战指南，涵盖架构分层、核心模块、TDD/SDD 工作流、子智能体协作与钩子注入机制等内容，帮助读者快速掌握如何基于 superpowers 构建高确定性的 AI 工程能力。全文见：[superpowers 深度解析](./superpowers-deep-dive.md)。
+该文档对 superpowers 插件与技能体系进行系统化的工程解析与实战指南，涵盖架构分层、核心模块、TDD/SDD 工作流、子智能体协作与钩子注入机制等内容，帮助读者快速掌握如何基于 superpowers 构建高确定性的 AI 工程能力。全文见：[superpowers 深度解析](./docs/superpowers-deep-dive.md)。
 
 ---
 
@@ -320,3 +321,17 @@
 - **全栈与客户端开发**：涵盖前端 (`frontend-dev`)、全栈 (`fullstack-dev`)、Android (`android-native-dev`) 以及 iOS (`ios-application-dev`) 的系统性开发指南与规范。
 - **多媒体与创意生成**：提供着色器开发 (`shader-dev`) 与 GIF 动图生成 (`gif-sticker-maker`) 技能，结合 MiniMax 的图像和视频生成 API，实现高级视觉效果。
 - **专业文档处理**：包含针对 PDF (`minimax-pdf`)、PPTX (`pptx-generator`)、Excel (`minimax-xlsx`) 和 DOCX (`minimax-docx`) 的深度处理技能，支持从零生成、模板填充与格式重构。
+
+---
+
+## 6. Skill 单元测试
+
+本章节介绍了项目中针对 Agent Skill 的单元测试与评估框架。该框架位于 `unit-test` 目录下，旨在确保各个技能在不同场景下的稳定性和准确性。
+
+该测试框架包含以下核心组件与文档：
+
+- **测试执行脚本**：`opencode-skill-eval.sh` 提供了自动化的测试执行能力。
+- **测试指南**：[`skill-eval-minimal-guide.md`](./unit-test/skill-eval-minimal-guide.md) 详细说明了如何编写和运行技能的评估测试。
+- **测试用例与数据**：包含 `evals`（评估逻辑）、`fixtures`（测试数据，如供 `doc-reviewer` 和 `md-translator` 使用的示例文档）、`skills`（被测技能配置）以及 `tests`（具体的测试断言脚本）。
+
+通过系统化的单元测试，我们能够持续验证技能触发的精准度以及任务执行的可靠性。
