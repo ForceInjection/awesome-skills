@@ -2,5 +2,6 @@
 sync.sh
 reports
 artifacts
+__pycache__
 
 .DS_Store
