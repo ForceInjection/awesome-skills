@@ -31,7 +31,7 @@
   - [4.3 superpowers 深度解析](#43-superpowers-深度解析)
 - [5. 推荐参考资源](#5-推荐参考资源)
   - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
-  - [5.2 PTX ISA Markdown 文档与技能](#52-ptx-isa-markdown-文档与技能)
+  - [5.2 CUDA Code Skill 文档与技能](#52-cuda-code-skill-文档与技能)
 - [6. Skill 单元测试](#6-skill-单元测试)
 
 ---
@@ -323,14 +323,14 @@
 - **多媒体与创意生成**：提供着色器开发 (`shader-dev`) 与 GIF 动图生成 (`gif-sticker-maker`) 技能，结合 MiniMax 的图像和视频生成 API，实现高级视觉效果。
 - **专业文档处理**：包含针对 PDF (`minimax-pdf`)、PPTX (`pptx-generator`)、Excel (`minimax-xlsx`) 和 DOCX (`minimax-docx`) 的深度处理技能，支持从零生成、模板填充与格式重构。
 
-### 5.2 PTX ISA Markdown 文档与技能
+### 5.2 CUDA Code Skill 文档与技能
 
-[ForceInjection/ptx-isa-markdown](https://github.com/ForceInjection/ptx-isa-markdown) 是由原力注入博主维护的 CUDA 开发者专属文档与 AI 技能库。该项目将 NVIDIA 的官方文档（包括 PTX ISA 9.1、CUDA Runtime API 13.1、CUDA Driver API 13.1 等）转换为结构化且易于检索的 Markdown 格式，并内置了针对 Claude Code 的 GPU 开发专属技能。
+[ForceInjection/cuda-code-skill](https://github.com/ForceInjection/cuda-code-skill) 是由原力注入博主维护的 CUDA 开发者专属文档与 AI 技能库。该项目将 NVIDIA 的官方文档（包括 PTX ISA 9.1、CUDA Runtime API 13.1、CUDA Driver API 13.1、CUDA Math API 13.x、cuBLAS 13.2 和 NCCL 等）转换为结构化且易于检索的 Markdown 格式，并内置了支持 Claude Code、Trae 等工具的 GPU 开发与 LLM 推理优化专属技能。
 
 其核心内容包括：
 
-- **可检索的官方文档**：覆盖 PTX 指令集、CUDA 运行时与驱动 API、cuBLAS 以及 NCCL 等核心库，彻底解决原版 HTML 文档跨页面检索困难的问题。
-- **Claude Code 专属开发技能**：内置的技能库支持快速查询 PTX 指令、CUDA Math 内联函数、混合精度 GEMM 签名以及多 GPU 通信（NCCL）等底层开发细节，显著提升 AI 辅助 CUDA 编程的准确率。
+- **可检索的官方文档**：覆盖 PTX 指令集、CUDA 运行时与驱动 API、CUDA Math、cuBLAS 以及 NCCL 等核心库，彻底解决原版 HTML 文档跨页面检索困难的问题。
+- **AI IDE 专属开发技能**：内置的技能库支持快速查询 PTX 指令、CUDA Math 内联函数、混合精度 GEMM 签名以及多 GPU 通信（NCCL）等底层开发细节，显著提升 AI（如 Claude Code, Trae 等）辅助 GPU 开发与 LLM 推理优化的准确率。
 
 ---
 
