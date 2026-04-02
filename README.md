@@ -32,6 +32,7 @@
 - [5. 推荐参考资源](#5-推荐参考资源)
   - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
   - [5.2 CUDA Code Skill 文档与技能](#52-cuda-code-skill-文档与技能)
+  - [5.3 vLLM 官方 Agent 技能库](#53-vllm-官方-agent-技能库)
 - [6. Skill 单元测试](#6-skill-单元测试)
 
 ---
@@ -331,6 +332,16 @@
 
 - **可检索的官方文档**：覆盖 PTX 指令集、CUDA 运行时与驱动 API、CUDA Math、cuBLAS 以及 NCCL 等核心库，彻底解决原版 HTML 文档跨页面检索困难的问题。
 - **AI IDE 专属开发技能**：内置的技能库支持快速查询 PTX 指令、CUDA Math 内联函数、混合精度 GEMM 签名以及多 GPU 通信（NCCL）等底层开发细节，显著提升 AI（如 Claude Code, Trae 等）辅助 GPU 开发与 LLM 推理优化的准确率。
+
+### 5.3 vLLM 官方 Agent 技能库
+
+[vllm-project/vllm-skills](https://github.com/vllm-project/vllm-skills/tree/main) 是由 vLLM 官方项目维护的专属智能体技能集合。该项目遵循 Anthropics 的技能模板规范，提供了一系列模块化、可复用的自动化技能，专门用于 vLLM 模型的部署、调用与性能基准测试。
+
+其核心技能模块包括：
+
+- **容器化部署**：提供 `vllm-deploy-docker` 技能，支持通过预构建镜像或源码编译的方式，快速部署支持 NVIDIA GPU 加速的 vLLM 容器，并启动兼容 OpenAI API 的服务。
+- **轻量级本地服务**：包含 `vllm-deploy-simple` 技能，能够自动检测硬件环境并安装 vLLM，在本地快速启动模型推理服务并提供测试与管理工具。
+- **性能基准测试**：提供 `vllm-prefix-cache-bench` 技能，支持使用固定提示词、真实数据集或合成模式，全面评估 vLLM 自动前缀缓存（Prefix Caching）机制的运行效率。
 
 ---
 
