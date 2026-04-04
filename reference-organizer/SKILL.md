@@ -29,7 +29,7 @@ description: "获取链接的元数据并生成不同级别的格式化参考文
 
     ```bash
     # 使用本技能目录下的 Python 脚本获取指定 arXiv 论文的元数据
-    # 注意：请在执行前将 <SKILL_DIR> 替换为当前 SKILL.md 所在的实际绝对路径
+    # 注意：LLM 在执行命令前，请先使用文件路径相关工具确认本技能目录的绝对路径，并将其替换到 <SKILL_DIR> 中。
     python3 <SKILL_DIR>/scripts/arxiv_metadata_fetcher.py -i <arXiv_ID> -f <format>
     ```
 
