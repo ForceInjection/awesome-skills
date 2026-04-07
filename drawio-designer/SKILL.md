@@ -30,7 +30,7 @@ The skill provides direct XML manipulation and automated quality checks to ensur
 - **Direct XML Editing**: Manipulates `.drawio` files as structured XML
 - **Automated Conversion**: Converts diagrams to high-resolution PNG via scripts
 - **Layout Calculations**: Computes proper spacing, alignment, and margins
-- **Icon Integration**: Searches and integrates official architecture icons (AWS, K8s, General)
+- **Icon Integration**: Searches and integrates official architecture icons (AWS, K8s, Network, General)
 - **Quality Assurance**: Applies design principles and accessibility guidelines
 
 ## Key Features
@@ -79,7 +79,7 @@ To ensure diagrams render correctly across all platforms and PNG conversions, yo
 
 ### Architecture Icon Integration
 
-Search and integrate official architecture service icons using the built-in script. It supports standard AWS resources (`mxgraph.aws4.*`), Kubernetes objects (`img/lib/kubernetes/*`), and General IT elements (databases, actors, clouds) with automated styling.
+Search and integrate official architecture service icons using the built-in script. It supports standard AWS resources (`mxgraph.aws4.*`), Kubernetes objects (`img/lib/kubernetes/*`), Network topology elements (`mxgraph.cisco.*`), and General IT elements (databases, actors, clouds) with automated styling.
 
 ### Design Principles
 
@@ -99,7 +99,7 @@ Automated validation ensures diagrams pass all baseline layout checks:
 - Appropriate font sizes (1.5x standard for readability)
 - Arrows on back layer (no overlaps)
 - 30px+ margins from container boundaries
-- Official service names and latest icons (AWS, K8s, General)
+- Official service names and latest icons (AWS, K8s, Network, General)
 - Visual verification of PNG output
 
 ## Usage Examples
@@ -163,6 +163,10 @@ python scripts/find-arch-icon.py ec2 --style
 # Search for Kubernetes Pod style
 python scripts/find-arch-icon.py pod --style
 # Output: shape=image;image=img/lib/kubernetes/compute/pod.svg;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;
+
+# Search for Network Router style
+python scripts/find-arch-icon.py router --style
+# Output: shape=mxgraph.cisco.routers.router;fillColor=#ffffff;strokeColor=#036897;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;
 
 # Search for General Database style
 python scripts/find-arch-icon.py database --style

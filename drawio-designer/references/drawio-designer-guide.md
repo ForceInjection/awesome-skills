@@ -17,9 +17,9 @@ Draw.io uses absolute coordinates (`x`, `y`) and dimensions (`width`, `height`).
 - Centers are typically calculated as `x + width/2` and `y + height/2`
 - Edges (arrows) must attach to source/target points or define explicit entry/exit vectors.
 
-### AWS Icons
+### Architecture Icons
 
-The `scripts/find-aws-icon.py` utility helps map common terminology (e.g. "EC2") to the specific draw.io style string (`mxgraph.aws4.compute.ec2_instance`).
+The `scripts/find-arch-icon.py` utility helps map common terminology (e.g. "EC2", "pod", "router", "database") to the specific draw.io style string (`shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#F58536...`). It supports AWS, Kubernetes, Network (Cisco), and General IT icons with strict style formatting required for headless rendering.
 
 ### PNG Conversion
 

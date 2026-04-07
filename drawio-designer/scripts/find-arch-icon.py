@@ -105,6 +105,14 @@ def search_icon(query):
         "namespace": {"type": "k8s", "icon": "img/lib/kubernetes/admin/ns.svg"},
         
         # ==========================================
+        # --- NETWORK (Cisco standard) ---------
+        # ==========================================
+        "router": {"type": "network", "icon": "mxgraph.cisco.routers.router", "color": "#ffffff", "stroke": "#036897"},
+        "switch": {"type": "network", "icon": "mxgraph.cisco.switches.workgroup_switch", "color": "#ffffff", "stroke": "#036897"},
+        "firewall": {"type": "network", "icon": "mxgraph.cisco.security.firewall", "color": "#ffffff", "stroke": "#cc0000"},
+        "load balancer": {"type": "network", "icon": "mxgraph.cisco.directors.content_engine", "color": "#ffffff", "stroke": "#036897"},
+        
+        # ==========================================
         # --- GENERAL IT / FLOWCHART -----------
         # ==========================================
         "database": {"type": "general", "icon": "cylinder3", "color": "#dae8fc", "stroke": "#6c8ebf"},
@@ -134,8 +142,8 @@ def search_icon(query):
     return None
 
 def main():
-    parser = argparse.ArgumentParser(description="Find official Architecture (AWS/K8s/General) icon styles for draw.io")
-    parser.add_argument("service", help="Service or component name (e.g., ec2, pod, database)")
+    parser = argparse.ArgumentParser(description="Find official Architecture (AWS/K8s/Network/General) icon styles for draw.io")
+    parser.add_argument("service", help="Service or component name (e.g., ec2, pod, router, database)")
     parser.add_argument("--style", action="store_true", help="Output full XML style string including standard formatting")
     args = parser.parse_args()
     
@@ -149,6 +157,8 @@ def main():
             elif result["type"] == "k8s":
                 # K8s icons use the standard draw.io image shape referencing the kubernetes clip art
                 style_str = f"shape=image;image={result['icon']};html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;"
+            elif result["type"] == "network":
+                style_str = f"shape={result['icon']};fillColor={result['color']};strokeColor={result['stroke']};html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;"
             else: # general
                 style_str = f"shape={result['icon']};fillColor={result['color']};strokeColor={result['stroke']};html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;"
                 
