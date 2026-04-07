@@ -1,6 +1,6 @@
 ---
 name: "drawio-designer"
-description: "Creates, edits, and manages draw.io XML diagrams, converts them to PNG, and integrates AWS icons. Invoke when the user wants to create, modify, or format draw.io architecture diagrams or flowcharts."
+description: "Creates, edits, and manages draw.io XML diagrams, converts them to PNG, and integrates AWS, K8s, and General IT icons. Invoke when the user wants to create, modify, or format draw.io architecture diagrams or flowcharts."
 ---
 
 # drawio-designer Diagram Skill
@@ -19,7 +19,7 @@ Use this skill when you need to manipulate diagram assets or layout structures p
 - Convert diagrams to PNG format with transparent backgrounds
 - Adjust element positions and layouts programmatically
 - Ensure consistent font families (especially for Quarto slides)
-- Work with AWS architecture diagrams using official icons
+- Work with architecture diagrams using official AWS, Kubernetes, and General IT icons
 - Maintain professional diagram quality with accessibility standards
 - Debug layout issues or element overlaps
 
@@ -30,7 +30,7 @@ The skill provides direct XML manipulation and automated quality checks to ensur
 - **Direct XML Editing**: Manipulates `.drawio` files as structured XML
 - **Automated Conversion**: Converts diagrams to high-resolution PNG via scripts
 - **Layout Calculations**: Computes proper spacing, alignment, and margins
-- **Icon Integration**: Searches and integrates official AWS icons
+- **Icon Integration**: Searches and integrates official architecture icons (AWS, K8s, General)
 - **Quality Assurance**: Applies design principles and accessibility guidelines
 
 ## Key Features
@@ -77,9 +77,9 @@ To ensure diagrams render correctly across all platforms and PNG conversions, yo
   - _General/Default_: `fillColor=#232F3E`
   - Example: `style="shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#F58536;strokeColor=none;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;"`
 
-### AWS Icon Integration
+### Architecture Icon Integration
 
-Search and integrate official AWS service icons using the latest `mxgraph.aws4.*` icon set to maintain architectural accuracy.
+Search and integrate official architecture service icons using the built-in script. It supports standard AWS resources (`mxgraph.aws4.*`), Kubernetes objects (`img/lib/kubernetes/*`), and General IT elements (databases, actors, clouds) with automated styling.
 
 ### Design Principles
 
@@ -99,7 +99,7 @@ Automated validation ensures diagrams pass all baseline layout checks:
 - Appropriate font sizes (1.5x standard for readability)
 - Arrows on back layer (no overlaps)
 - 30px+ margins from container boundaries
-- Official AWS service names and latest icons
+- Official service names and latest icons (AWS, K8s, General)
 - Visual verification of PNG output
 
 ## Usage Examples
@@ -149,16 +149,24 @@ bash scripts/drawio-to-png.sh architecture.drawio
 # Result: architecture.png (2x resolution, transparent)
 ```
 
-### Find AWS Icon
+### Find Architecture Icon
 
 ```bash
 # Search for EC2 icon string reference
-python scripts/find-aws-icon.py ec2
+python scripts/find-arch-icon.py ec2
 # Output: mxgraph.aws4.ec2
 
 # Search and get the complete style string including standard category color
-python scripts/find-aws-icon.py ec2 --style
+python scripts/find-arch-icon.py ec2 --style
 # Output: shape=mxgraph.aws4.resourceIcon;resIcon=mxgraph.aws4.ec2;fillColor=#F58536;strokeColor=none;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;
+
+# Search for Kubernetes Pod style
+python scripts/find-arch-icon.py pod --style
+# Output: shape=image;image=img/lib/kubernetes/compute/pod.svg;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;
+
+# Search for General Database style
+python scripts/find-arch-icon.py database --style
+# Output: shape=cylinder3;fillColor=#dae8fc;strokeColor=#6c8ebf;html=1;pointerEvents=1;verticalLabelPosition=bottom;verticalAlign=top;align=center;
 ```
 
 ## Best Practices
