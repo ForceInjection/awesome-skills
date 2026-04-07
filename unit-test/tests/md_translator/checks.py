@@ -24,13 +24,13 @@ def _parse_frontmatter(text: str) -> dict:
 
 
 def _check_exists_skill_md(root: Path) -> Tuple[bool, str]:
-    p = root / "md-translator" / "SKILL.md"
+    p = root / "skills" / "md-translator" / "SKILL.md"
     ok = p.exists()
-    return ok, "SKILL.md 存在" if ok else "缺少 md-translator/SKILL.md"
+    return ok, "SKILL.md 存在" if ok else "缺少 skills/md-translator/SKILL.md"
 
 
 def _check_frontmatter(root: Path) -> Tuple[bool, str]:
-    p = root / "md-translator" / "SKILL.md"
+    p = root / "skills" / "md-translator" / "SKILL.md"
     text = _read_text(p)
     fm = _parse_frontmatter(text)
     ok = (fm.get("name") == "md-translator") and bool(fm.get("description"))
@@ -38,7 +38,7 @@ def _check_frontmatter(root: Path) -> Tuple[bool, str]:
 
 
 def _check_core_sections(root: Path) -> Tuple[bool, str]:
-    p = root / "md-translator" / "SKILL.md"
+    p = root / "skills" / "md-translator" / "SKILL.md"
     text = _read_text(p)
     required = [
         r"^#\s*Markdown Translator\s*$",
@@ -52,14 +52,14 @@ def _check_core_sections(root: Path) -> Tuple[bool, str]:
 
 
 def _check_suffix_guidance(root: Path) -> Tuple[bool, str]:
-    p = root / "md-translator" / "SKILL.md"
+    p = root / "skills" / "md-translator" / "SKILL.md"
     text = _read_text(p)
     ok = ("_zh.md" in text) or ("-zh.md" in text) or (" .zh.md" in text) or (".zh.md" in text)
     return ok, "包含语言后缀命名示例" if ok else "缺少语言后缀命名说明（如 _zh.md）"
 
 
 def _check_format_rules(root: Path) -> Tuple[bool, str]:
-    p = root / "md-translator" / "SKILL.md"
+    p = root / "skills" / "md-translator" / "SKILL.md"
     text = _read_text(p)
     ok = ("spaces between Chinese and English" in text) or ("中文" in text and "English" in text)
     ok = ok and ("code blocks" in text or "代码块" in text)

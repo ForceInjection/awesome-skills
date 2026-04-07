@@ -8,7 +8,7 @@
 
 通过对生态系统中 Skill 构建方式的研究——从 Anthropic 的代码库到 Vercel 和 Google 的内部指南——我们发现了五种常见的设计模式，可以帮助开发者构建 Agent（智能体）。本文将结合实际的 ADK 代码详细介绍每种模式：
 
-![design-patterns](./img/design-patterns.png)
+![design-patterns](../img/design-patterns.png)
 
 ## 1. 工具包装器
 
@@ -18,7 +18,7 @@
 
 SKILL.md 文件监听用户提示中的特定库关键词，动态从 `references/` 目录加载内部文档，并将这些规则作为绝对真理应用。这正是你将团队内部编码指南或特定框架最佳实践直接分发到开发者工作流程中的机制。
 
-![design-wrapper](./img/design-wrapper.png)
+![design-wrapper](../img/design-wrapper.png)
 
 以下是一个教 Agent 如何编写 FastAPI 代码的工具包装器示例。注意指令如何明确告诉 Agent 只在开始审查或编写代码时才加载 `conventions.md` 文件：
 
@@ -58,7 +58,7 @@ metadata:
 
 如果你苦于 Agent 每次运行生成不同的文档结构，生成器 (Generator) 通过编排填空过程来解决这个问题。它利用两个可选目录： `assets/` 存放输出模板， `references/` 存放样式指南。指令充当项目经理，告诉 Agent 加载模板、阅读样式指南、询问用户缺失的变量，然后填充文档。这对于生成可预测的 API 文档、标准化提交信息或脚手架项目架构都很实用。
 
-![design-generator](./img/design-generator.png)
+![design-generator](../img/design-generator.png)
 
 在这个技术报告生成器示例中， Skill 文件不包含实际的布局或语法规则。它只是协调这些资产的检索，并强制 Agent 逐步执行：
 
@@ -95,7 +95,7 @@ metadata:
 
 与其编写冗长的系统提示详细说明每种代码异味，不如将模块化的评分标准存储在 `references/review-checklist.md` 文件中。当用户提交代码时， Agent 加载这个检查清单，系统地评分提交，按严重性分组其发现。
 
-![design-reviewer](./img/design-reviewer.png)
+![design-reviewer](../img/design-reviewer.png)
 
 如果你将 Python 风格检查清单换成 OWASP 安全检查清单，使用完全相同的 Skill 基础设施就能获得完全不同的专业化审计。这是一种在人工审查代码之前自动进行 PR 审查或捕获安全漏洞的高效方式。
 
@@ -137,7 +137,7 @@ metadata:
 
 Agent 本质上倾向于立即猜测和生成。反转模式 (Inversion) 翻转了这种动态。不是由用户驱动提示并由 Agent 执行，而是让 Agent 充当面试官。反转模式依赖于明确的、不可协商的门控指令（如“在所有阶段完成之前不要开始构建”），强制 Agent 首先收集上下文。
 
-![design-inversion](./img/design-inversion.png)
+![design-inversion](../img/design-inversion.png)
 
 它按顺序提出结构化问题，并在每个答案后等待你的回复。 Agent 不会综合最终输出，直到它对你的需求和部署约束有了完整了解。要查看实际效果，请看这个项目规划器 Skill 。这里的关键要素是严格的阶段划分和明确的门控提示：
 
@@ -181,7 +181,7 @@ metadata:
 
 对于复杂任务，你不能承担跳过步骤或忽略指令的代价。管道模式 (Pipeline) 强制执行严格的顺序工作流和硬检查点。指令本身充当工作流定义。
 
-![design-pipeline](./img/design-pipeline.png)
+![design-pipeline](../img/design-pipeline.png)
 
 通过实现明确的门控条件（如“在从文档字符串生成转到最终组装之前需要用户批准”），管道模式确保 Agent 不能绕过复杂任务并呈现未验证的最终结果。这个模式利用所有可选目录，只在特定步骤需要时才拉取不同的参考文件和模板，保持上下文窗口简洁。
 
@@ -226,7 +226,7 @@ metadata:
 
 每种模式回答不同的问题。使用这个决策树可以找到适合你用例的模式：
 
-![design-decision-tree](./img/design-decision-tree.png)
+![design-decision-tree](../img/design-decision-tree.png)
 
 ## 7. 如何组合应用设计模式
 

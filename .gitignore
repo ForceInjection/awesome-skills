@@ -7,3 +7,6 @@ __pycache__
 .DS_Store
 
 .opencode*
+.obsidian
+.trae
+.ruff_cache

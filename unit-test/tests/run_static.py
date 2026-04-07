@@ -16,7 +16,7 @@ def run_doc_reviewer() -> int:
 
     # 校验技能说明文档（SKILL.md）结构完整性
     root = Path(__file__).resolve().parents[2]
-    skill_md_dir = root / "doc-reviewer"
+    skill_md_dir = root / "skills" / "doc-reviewer"
     if (skill_md_dir / "SKILL.md").exists():
         result2 = run_skill_md_checks(root.as_posix())
         print(result2)

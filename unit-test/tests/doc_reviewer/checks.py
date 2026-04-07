@@ -88,13 +88,13 @@ def _parse_frontmatter(text: str) -> dict:
 
 
 def _check_exists_skill_md(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     ok = p.exists()
-    return ok, "SKILL.md 存在" if ok else "缺少 doc-reviewer/SKILL.md"
+    return ok, "SKILL.md 存在" if ok else "缺少 skills/doc-reviewer/SKILL.md"
 
 
 def _check_frontmatter(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     fm = _parse_frontmatter(text)
     ok = bool(fm.get("name")) and bool(fm.get("description"))
@@ -102,7 +102,7 @@ def _check_frontmatter(base_dir: Path) -> tuple[bool, str]:
 
 
 def _check_core_sections(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     required = [
         r"^#\s*文档评审\s*$",
@@ -116,7 +116,7 @@ def _check_core_sections(base_dir: Path) -> tuple[bool, str]:
 
 
 def _check_four_types(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     required_types = [
         "大纲评审",
@@ -129,14 +129,14 @@ def _check_four_types(base_dir: Path) -> tuple[bool, str]:
 
 
 def _check_output_format_block(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     ok = "## 评审结果 - [评审类型名称]" in text and "### 发现的问题" in text and "### 总结" in text
     return ok, "输出格式模板存在" if ok else "缺少评审输出格式模板"
 
 
 def _check_no_bilingual_titles(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     bad = []
     in_code = False
@@ -154,7 +154,7 @@ def _check_no_bilingual_titles(base_dir: Path) -> tuple[bool, str]:
 
 
 def _check_numbering_headers(base_dir: Path) -> tuple[bool, str]:
-    p = base_dir / "doc-reviewer" / "SKILL.md"
+    p = base_dir / "skills" / "doc-reviewer" / "SKILL.md"
     text = _read_text2(p)
     h2_lines = []
     h3_lines = []
