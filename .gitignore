@@ -3,6 +3,7 @@ sync.sh
 reports
 artifacts
 __pycache__
+venv
 
 .DS_Store
 
