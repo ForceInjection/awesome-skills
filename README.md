@@ -403,6 +403,10 @@
 - **轻量级本地服务**：包含 `vllm-deploy-simple` 技能，能够自动检测硬件环境并安装 vLLM，在本地快速启动模型推理服务并提供测试与管理工具。
 - **性能基准测试**：提供 `vllm-prefix-cache-bench` 技能，支持使用固定提示词、真实数据集或合成模式，全面评估 vLLM 自动前缀缓存（Prefix Caching）机制的运行效率。
 
+### 5.4 中文技能发现入口
+
+[Skills宝](https://skilery.com/) 是一个中文 Skills 搜索与安装入口，适合 Claude Code、OpenCode、Cursor 等多平台技能发现与安装。
+
 ---
 
 ## 6. `Skill` 单元测试
