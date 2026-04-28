@@ -253,6 +253,10 @@
 
 ### 1.15 知识图谱本体管理
 
+> 原始出处：[openclaw/skills · oswalpalash/ontology](https://github.com/openclaw/skills/tree/main/skills/oswalpalash/ontology)
+>
+> 本仓库改动：导入 `SKILL.md`、`scripts/ontology.py` 及 `references/` 下的 `schema.md`、`queries.md`，删除上游仅用于市场分发的 `_meta.json`；并在本 README 的 §1.15 增补中文讲解（四个使用场景 + 端到端示例），同时将本 README 中实体/关系计数修正为与实际 schema 对齐的数值（16 种实体、15 种关系）。
+
 [`ontology`](./skills/ontology) 技能为智能体提供了一套类型化的知识图谱系统，用于结构化的记忆存储与跨技能状态共享。
 
 该技能基于实体-关系模型（Entity-Relation）构建可验证的知识图谱，内置了 16 种核心实体类型（如 Person、Project、Task、Event、Document 等）和 15 种关系类型（如 `has_owner`、`blocks`、`depends_on` 等），覆盖了人员、工作、时间地点、信息、资源与元数据等典型领域。在约束层面，它支持属性约束（必填字段、枚举值、禁止字段）、关系基数校验以及基于深度优先搜索（DFS）的环路检测。其中属性约束在实体 `create` 时即时校验，而关系类型、基数与环路等全局约束则通过 `validate` 命令进行批量复核。在存储层面，数据以追加式 JSONL 事件日志落盘，天然具备完整审计轨迹和冲突避免能力；同时该技能还定义了“技能契约”模式，允许其他技能声明对本体的读写依赖，实现可组合的多技能协作架构。
