@@ -4,46 +4,49 @@
 
 ## 目录
 
-- [1. 核心技能介绍](#1-核心技能介绍)
-  - [1.1 深度代码阅读](#11-深度代码阅读)
-  - [1.2 深度项目架构分析](#12-深度项目架构分析)
-  - [1.3 目录整理](#13-目录整理)
-  - [1.4 文档评审](#14-文档评审)
-  - [1.5 Markdown 总结器](#15-markdown-总结器)
-  - [1.6 代码提交助手](#16-代码提交助手)
-  - [1.7 `Agent Skill` 审查器](#17-agent-skill-审查器)
-  - [1.8 `OpenSpec` 规范驱动开发辅助](#18-openspec-规范驱动开发辅助)
-  - [1.9 网页内容下载器](#19-网页内容下载器)
-  - [1.10 Markdown 翻译器](#110-markdown-翻译器)
-  - [1.11 参考文献整理助手](#111-参考文献整理助手)
-  - [1.12 Markdown 链接检查器](#112-markdown-链接检查器)
-  - [1.13 Draw.io 架构图设计器](#113-drawio-架构图设计器)
-  - [1.14 PPTX 读取器](#114-pptx-读取器)
-- [2. 核心设计理念](#2-核心设计理念)
-  - [2.1 语言规范：受众隔离](#21-语言规范受众隔离)
-  - [2.2 产物定位：为什么是生成 SKILL 而非 Agent？](#22-产物定位为什么是生成-skill-而非-agent)
-- [3. `Agent Skill` 最佳实践](#3-agent-skill-最佳实践)
-  - [3.1 生产级目录结构](#31-生产级目录结构)
-  - [3.2 精准的触发描述](#32-精准的触发描述)
-  - [3.3 渐进式知识披露](#33-渐进式知识披露)
-  - [3.4 状态管理与流程编排](#34-状态管理与流程编排)
-  - [3.5 技能测试金字塔](#35-技能测试金字塔)
-  - [3.6 技能命名规范](#36-技能命名规范)
-- [4. 深度解析案例](#4-深度解析案例)
-  - [4.1 gstack 项目深度解析](#41-gstack-项目深度解析)
-  - [4.2 五种智能体技能设计模式](#42-五种智能体技能设计模式)
-  - [4.3 superpowers 深度解析](#43-superpowers-深度解析)
-- [5. 推荐参考资源](#5-推荐参考资源)
-  - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
-  - [5.2 CUDA Code Skill 文档与技能](#52-cuda-code-skill-文档与技能)
-  - [5.3 vLLM 官方 Agent 技能库](#53-vllm-官方-agent-技能库)
-- [6. `Skill` 单元测试](#6-skill-单元测试)
+- [原力注入 Agent Skill 合集](#原力注入-agent-skill-合集)
+  - [目录](#目录)
+  - [1. 核心技能介绍](#1-核心技能介绍)
+    - [1.1 深度代码阅读](#11-深度代码阅读)
+    - [1.2 深度项目架构分析](#12-深度项目架构分析)
+    - [1.3 目录整理](#13-目录整理)
+    - [1.4 文档评审](#14-文档评审)
+    - [1.5 Markdown 总结器](#15-markdown-总结器)
+    - [1.6 代码提交助手](#16-代码提交助手)
+    - [1.7 `Agent Skill` 审查器](#17-agent-skill-审查器)
+    - [1.8 `OpenSpec` 规范驱动开发辅助](#18-openspec-规范驱动开发辅助)
+    - [1.9 网页内容下载器](#19-网页内容下载器)
+    - [1.10 Markdown 翻译器](#110-markdown-翻译器)
+    - [1.11 参考文献整理助手](#111-参考文献整理助手)
+    - [1.12 Markdown 链接检查器](#112-markdown-链接检查器)
+    - [1.13 Draw.io 架构图设计器](#113-drawio-架构图设计器)
+    - [1.14 PPTX 读取器](#114-pptx-读取器)
+    - [1.15 知识图谱本体管理](#115-知识图谱本体管理)
+  - [2. 核心设计理念](#2-核心设计理念)
+    - [2.1 语言规范：受众隔离](#21-语言规范受众隔离)
+    - [2.2 产物定位：为什么是生成 SKILL 而非 Agent？](#22-产物定位为什么是生成-skill-而非-agent)
+  - [3. `Agent Skill` 最佳实践](#3-agent-skill-最佳实践)
+    - [3.1 生产级目录结构](#31-生产级目录结构)
+    - [3.2 精准的触发描述](#32-精准的触发描述)
+    - [3.3 渐进式知识披露](#33-渐进式知识披露)
+    - [3.4 状态管理与流程编排](#34-状态管理与流程编排)
+    - [3.5 技能测试金字塔](#35-技能测试金字塔)
+    - [3.6 技能命名规范](#36-技能命名规范)
+  - [4. 深度解析案例](#4-深度解析案例)
+    - [4.1 gstack 项目深度解析](#41-gstack-项目深度解析)
+    - [4.2 五种智能体技能设计模式](#42-五种智能体技能设计模式)
+    - [4.3 superpowers 深度解析](#43-superpowers-深度解析)
+  - [5. 推荐参考资源](#5-推荐参考资源)
+    - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
+    - [5.2 CUDA Code Skill 文档与技能](#52-cuda-code-skill-文档与技能)
+    - [5.3 vLLM 官方 Agent 技能库](#53-vllm-官方-agent-技能库)
+  - [6. `Skill` 单元测试](#6-skill-单元测试)
 
 ---
 
 ## 1. 核心技能介绍
 
-针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 14 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
+针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 15 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
 
 ### 1.1 深度代码阅读
 
@@ -247,6 +250,64 @@
 # 参数 target-file: 需要被处理的 .pptx 演示文稿文件路径
 /pptx-reader <target-file>
 ```
+
+### 1.15 知识图谱本体管理
+
+[`ontology`](./skills/ontology) 技能为智能体提供了一套类型化的知识图谱系统，用于结构化的记忆存储与跨技能状态共享。
+
+该技能基于实体-关系模型（Entity-Relation）构建可验证的知识图谱，内置了 16 种核心实体类型（如 Person、Project、Task、Event、Document 等）和 15 种关系类型（如 `has_owner`、`blocks`、`depends_on` 等），覆盖了人员、工作、时间地点、信息、资源与元数据等典型领域。在约束层面，它支持属性约束（必填字段、枚举值、禁止字段）、关系基数校验以及基于深度优先搜索（DFS）的环路检测。其中属性约束在实体 `create` 时即时校验，而关系类型、基数与环路等全局约束则通过 `validate` 命令进行批量复核。在存储层面，数据以追加式 JSONL 事件日志落盘，天然具备完整审计轨迹和冲突避免能力；同时该技能还定义了“技能契约”模式，允许其他技能声明对本体的读写依赖，实现可组合的多技能协作架构。
+
+与其他单一职责的工具型技能不同，`ontology` 扮演的是**智能体记忆层与协作基座**的角色，其典型使用场景包括：
+
+- **跨会话持久化记忆**：当用户希望智能体“记住”某些事实（如“Alice 是网站重构项目的负责人”、“任务 A 依赖任务 B”）时，将其落地为可查询、可验证的结构化图谱，避免上下文窗口丢失导致的信息遗忘。
+- **多技能状态共享**：当多个技能需要在同一份“世界状态”上协同时（例如邮件技能产生 `Commitment`，任务技能消费后生成 `Task`），通过本体提供的统一读写契约消除各技能之间的数据格式割裂。
+- **计划即图变换**：当智能体需要规划多步任务时，将整个计划建模为一系列带约束校验的图操作序列（即 Planning as Graph Transformation 模式），任一步违反约束即可回滚，显著提升长流程任务的可靠性。
+- **依赖与影响分析**：针对项目管理场景（任务阻塞、人员分配、事件关联等）进行图遍历查询，例如“X 任务的上游阻塞有哪些”、“proj_001 下所有未完成任务的负责人是谁”。
+
+**端到端示例**：以“为‘网站重构’项目建立知识图谱，并追踪任务依赖”为例，完整工作流如下：
+
+```bash
+# 步骤 1：初始化本体存储
+mkdir -p memory/ontology && touch memory/ontology/graph.jsonl
+
+# 步骤 2：声明 schema 约束（定义 Task 的必填字段与状态枚举）
+python3 scripts/ontology.py schema-append --data '{
+  "types": {
+    "Person":  {"required": ["name"]},
+    "Project": {"required": ["name", "status"]},
+    "Task":    {"required": ["title", "status"], "status_enum": ["open", "in_progress", "done"]}
+  },
+  "relations": {
+    "has_owner": {"from_types": ["Project"], "to_types": ["Person"], "cardinality": "many_to_one"},
+    "has_task":  {"from_types": ["Project"], "to_types": ["Task"]},
+    "blocks":    {"from_types": ["Task"],    "to_types": ["Task"], "acyclic": true}
+  }
+}'
+
+# 步骤 3：创建核心实体（负责人、项目、两个任务）
+python3 scripts/ontology.py create --type Person  --id p_001     --props '{"name":"Alice","email":"alice@example.com"}'
+python3 scripts/ontology.py create --type Project --id proj_001  --props '{"name":"Website Redesign","status":"active"}'
+python3 scripts/ontology.py create --type Task    --id task_001  --props '{"title":"Draft wireframes","status":"open"}'
+python3 scripts/ontology.py create --type Task    --id task_002  --props '{"title":"Implement homepage","status":"open"}'
+
+# 步骤 4：建立关系（项目负责人、项目-任务归属、任务间阻塞依赖）
+python3 scripts/ontology.py relate --from proj_001 --rel has_owner --to p_001
+python3 scripts/ontology.py relate --from proj_001 --rel has_task  --to task_001
+python3 scripts/ontology.py relate --from proj_001 --rel has_task  --to task_002
+python3 scripts/ontology.py relate --from task_001 --rel blocks    --to task_002
+
+# 步骤 5：查询——列出项目下所有任务、所有开放状态任务，以及 task_002 的上游阻塞者
+python3 scripts/ontology.py related --id proj_001 --rel has_task
+python3 scripts/ontology.py query   --type Task   --where '{"status":"open"}'
+python3 scripts/ontology.py related --id task_002 --rel blocks --dir incoming
+
+# 步骤 6：全量校验（检查关系类型/基数、环路以及全量属性约束）
+#   —— 对应“计划即图变换”场景：在外层工作流中将 validate 作为提交前的守门步骤，
+#      一旦发现约束违反则由调用方执行整体回滚（ontology.py 本身只负责报告错误）
+python3 scripts/ontology.py validate
+```
+
+执行完毕后，`memory/ontology/graph.jsonl` 中会沉淀一份完整的、可审计的事件日志；后续任何技能（如代码提交助手、OpenSpec 开发辅助）均可基于同一份图谱读取项目上下文或追加新的实体与关系，实现真正的**跨技能协同记忆**——这正是上文“多技能状态共享”场景在工程落地时的标准形态。
 
 ---
 
