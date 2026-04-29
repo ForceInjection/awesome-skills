@@ -119,7 +119,7 @@ input_url="file://${abs_input_path// /%20}"
   --no-first-run \
   --no-default-browser-check \
   --disable-background-networking \
-  --window-size="${width},${height}" \
+  --window-size="${width},$((height + 10))" \
   --screenshot="$abs_output_path" \
   "$input_url"
 

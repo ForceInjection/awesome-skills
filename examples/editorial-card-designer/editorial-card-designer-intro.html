@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>editorial-card-designer · 让任意一段文字秒变杂志级信息卡</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&family=Oswald:wght@500;700&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #ffffff;
+        --ink: #0c2d45;
+        --sub: #335a78;
+        --muted: #6a8ba3;
+        --accent: #0083cb;
+        --tint: rgba(0, 131, 203, 0.07);
+        --tint-strong: rgba(0, 131, 203, 0.12);
+        --rule: rgba(12, 45, 69, 0.14);
+        --canvas-width: 1920px;
+        --canvas-height: 1080px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--paper);
+      }
+
+      body {
+        font-family: "Inter", "Noto Sans SC", "PingFang SC", "Microsoft YaHei", sans-serif;
+        color: var(--ink);
+      }
+
+      .frame {
+        width: var(--canvas-width);
+        height: var(--canvas-height);
+      }
+
+      .card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: var(--paper);
+        padding: 48px 72px 40px;
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto auto auto auto;
+        row-gap: 18px;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.045;
+        background-image:
+          radial-gradient(circle at 20% 20%, rgba(0, 131, 203, 0.7) 0.5px, transparent 0.9px),
+          radial-gradient(circle at 80% 40%, rgba(0, 131, 203, 0.55) 0.4px, transparent 0.7px);
+        background-size: 8px 8px, 11px 11px;
+      }
+
+      /* ========= HEADER ========= */
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 12px;
+        border-bottom: 1px solid var(--rule);
+      }
+
+      .meta-tags {
+        display: flex;
+        gap: 14px;
+        align-items: center;
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .meta-tags .dot {
+        width: 6px;
+        height: 6px;
+        background: var(--accent);
+        display: inline-block;
+      }
+
+      .meta-right {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .meta-right b {
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.18em;
+      }
+
+      /* ========= HERO ========= */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.35fr 0.85fr;
+        column-gap: 48px;
+        align-items: start;
+        padding-top: 4px;
+      }
+
+      .hero-left {
+        display: grid;
+        row-gap: 14px;
+      }
+
+      .kicker {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0;
+      }
+
+      .title {
+        margin: 0;
+        font-family: "Noto Serif SC", "Source Han Serif SC", serif;
+        font-weight: 900;
+        font-size: 68px;
+        line-height: 1.02;
+        letter-spacing: -0.02em;
+        color: var(--ink);
+      }
+
+      .title em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      .bar {
+        width: 128px;
+        height: 6px;
+        background: var(--accent);
+        margin: 2px 0 2px;
+      }
+
+      .deck {
+        margin: 0;
+        font-size: 18px;
+        line-height: 1.45;
+        color: var(--sub);
+        max-width: 780px;
+      }
+
+      .deck b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      /* ========= HERO RIGHT: STAT CLUSTER ========= */
+      .stat-cluster {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+      }
+
+      .stat {
+        padding: 14px 18px 12px;
+        background: var(--tint);
+        border-top: 5px solid var(--accent);
+      }
+
+      .stat.big {
+        grid-column: span 2;
+        background: var(--tint-strong);
+      }
+
+      .stat-num {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-weight: 700;
+        font-size: 66px;
+        line-height: 1;
+        color: var(--accent);
+        letter-spacing: -0.02em;
+      }
+
+      .stat.big .stat-num {
+        font-size: 72px;
+      }
+
+      .stat-label {
+        margin-top: 6px;
+        font-size: 13px;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: var(--sub);
+        font-weight: 700;
+      }
+
+      .stat-note {
+        margin-top: 6px;
+        font-size: 14px;
+        color: var(--sub);
+        line-height: 1.45;
+      }
+
+      /* ========= MODULES ========= */
+      .modules {
+        display: grid;
+        grid-template-columns: 1.3fr 1fr 1fr;
+        column-gap: 22px;
+        align-items: stretch;
+      }
+
+      .mod {
+        padding: 20px 22px 18px;
+        border-top: 4px solid var(--accent);
+        background: var(--tint);
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .mod.primary {
+        background: #f4f9fd;
+        border-top-width: 6px;
+      }
+
+      .mod-hint {
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid rgba(0, 131, 203, 0.22);
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        font-weight: 700;
+      }
+
+      .mod-hint span {
+        color: var(--sub);
+        letter-spacing: 0.08em;
+        text-transform: none;
+        font-weight: 500;
+        font-family: "Inter", "Noto Sans SC", sans-serif;
+        font-size: 12.5px;
+      }
+
+      .mod-index {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 13px;
+        letter-spacing: 0.22em;
+        color: var(--accent);
+        font-weight: 700;
+        text-transform: uppercase;
+      }
+
+      .mod-title {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-size: 26px;
+        line-height: 1.2;
+        color: var(--ink);
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+
+      .mod-body {
+        margin: 0;
+        font-size: 15.5px;
+        line-height: 1.55;
+        color: var(--sub);
+      }
+
+      .mod ul {
+        margin: 2px 0 0;
+        padding: 0;
+        list-style: none;
+        display: grid;
+        row-gap: 8px;
+      }
+
+      .mod li {
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--sub);
+        position: relative;
+        padding-left: 18px;
+      }
+
+      .mod li::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 8px;
+        width: 9px;
+        height: 2px;
+        background: var(--accent);
+      }
+
+      .mod li b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      /* ========= FOOTER ========= */
+      .footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: 10px;
+        border-top: 1px solid var(--rule);
+        font-size: 13px;
+        letter-spacing: 0.08em;
+        color: var(--muted);
+      }
+
+      .footer .left {
+        font-family: "Inter", "Noto Sans SC", monospace;
+        color: var(--sub);
+      }
+
+      .footer .left code {
+        color: var(--accent);
+        font-weight: 700;
+        letter-spacing: 0.02em;
+      }
+
+      .footer .right {
+        font-family: "Oswald", "Inter", sans-serif;
+        text-transform: uppercase;
+        letter-spacing: 0.26em;
+        color: var(--muted);
+      }
+
+      .footer .right b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      /* ========= MOBILE FALLBACK ========= */
+      @media (max-width: 1280px) {
+        html,
+        body {
+          height: auto;
+        }
+        .frame {
+          width: 100%;
+          height: auto;
+        }
+        .card {
+          padding: 28px;
+          row-gap: 20px;
+        }
+        .hero {
+          grid-template-columns: 1fr;
+          row-gap: 24px;
+        }
+        .title {
+          font-size: 40px;
+        }
+        .modules {
+          grid-template-columns: 1fr;
+          row-gap: 14px;
+        }
+        .stat-cluster {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="frame">
+      <article class="card">
+        <!-- HEADER -->
+        <header class="header">
+          <div class="meta-tags">
+            <span class="dot"></span>
+            <span>AGENT&nbsp;SKILL · EDITORIAL&nbsp;DESIGN</span>
+            <span>·</span>
+            <span>Swiss / International Typographic Style</span>
+          </div>
+          <div class="meta-right">
+            Density <b>/ High</b> &nbsp;·&nbsp; Ratio <b>/ 16:9</b>
+          </div>
+        </header>
+
+        <!-- HERO + STAT CLUSTER -->
+        <section class="hero">
+          <div class="hero-left">
+            <p class="kicker">awesome-skills · skills/editorial-card-designer</p>
+            <h1 class="title">让任意一段文字<br />秒变<em>杂志级</em>信息卡</h1>
+            <div class="bar"></div>
+            <p class="deck">
+              一款开源的 Agent Skill：把一段纯文字转成<b>瑞士国际主义</b>风格的高密度编辑卡，
+              并直接输出<b>像素级对齐</b>的 PNG。大模型写文案、大模型排网格、无头 Chrome 截图 ——
+              <b>全流程可复现</b>，跳过 Figma / Keynote / Canva 的导出循环。
+            </p>
+          </div>
+
+          <aside class="stat-cluster">
+            <div class="stat big">
+              <div class="stat-num">8</div>
+              <div class="stat-label">固定比例预设</div>
+              <div class="stat-note">
+                3:4 · 4:3 · 1:1 · 16:9 · 9:16 · 2.35:1 · 3:1 · 5:2
+              </div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">3</div>
+              <div class="stat-label">步 流水线</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">1×</div>
+              <div class="stat-label">DPR 像素级还原</div>
+            </div>
+          </aside>
+        </section>
+
+        <!-- MODULES -->
+        <section class="modules">
+          <section class="mod primary">
+            <div class="mod-index">01 · Workflow</div>
+            <h2 class="mod-title">三步从文字到封面</h2>
+            <ul>
+              <li><b>生成 HTML</b> — 基于 <code>card-template.html</code> 的最小骨架，匹配目标画布尺寸与比例。</li>
+              <li><b>无头 Chrome 截图</b> — <code>capture_card.sh your.html out.png 16:9</code> 一键出图。</li>
+              <li><b>可选裁底</b> — <code>trim_card_bottom.sh</code> 按背景色自动裁掉残留留白。</li>
+            </ul>
+            <div class="mod-hint">Deliverable · <span>HTML + 像素级 PNG</span></div>
+          </section>
+
+          <section class="mod">
+            <div class="mod-index">02 · Guarantees</div>
+            <h2 class="mod-title">为什么「看上去就对」</h2>
+            <ul>
+              <li><b>像素级还原</b>：<code>--force-device-scale-factor=1</code>，1920×1080 就是真 1920×1080。</li>
+              <li><b>可预测字体栈</b>：Noto Serif/Sans SC + Oswald + Inter，强制本地回退，不塌 Times。</li>
+              <li><b>底部留白兜底</b>：Pillow 检测背景色自动裁边，成品永远填满画面。</li>
+            </ul>
+            <div class="mod-hint">Reliability · <span>不用再猜 DPI 与字体</span></div>
+          </section>
+
+          <section class="mod">
+            <div class="mod-index">03 · Upgrades vs Upstream</div>
+            <h2 class="mod-title">本仓做了哪些加固</h2>
+            <ul>
+              <li><b>重命名</b>：突出「设计 + 截图」双阶段产出。</li>
+              <li><b>显式依赖声明</b>：Chrome / Python + Pillow 全列入 metadata。</li>
+              <li><b>跨平台</b>：重写 Chrome 解析顺序，脚本改用 <code>#!/usr/bin/env bash</code>。</li>
+              <li><b>受众隔离</b>：英文 SKILL.md 与中文 prompt 彻底分离。</li>
+            </ul>
+            <div class="mod-hint">Fork Delta · <span>Based on shaom/infocard-skills</span></div>
+          </section>
+        </section>
+
+        <!-- FOOTER -->
+        <footer class="footer">
+          <div class="left">
+            仓库路径 · <code>awesome-skills / skills / editorial-card-designer</code>
+          </div>
+          <div class="right">
+            Upstream <b>shaom/infocard-skills</b>
+          </div>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>
