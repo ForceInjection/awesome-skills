@@ -113,13 +113,13 @@ input_url="file://${abs_input_path// /%20}"
   --disable-gpu \
   --hide-scrollbars \
   --run-all-compositor-stages-before-draw \
-  --virtual-time-budget=10000 \
+  --virtual-time-budget=30000 \
   --force-device-scale-factor=1 \
   --font-render-hinting=none \
   --no-first-run \
   --no-default-browser-check \
   --disable-background-networking \
-  --window-size="${width},$((height + 10))" \
+  --window-size="${width},$((height + 120))" \
   --screenshot="$abs_output_path" \
   "$input_url"
 
