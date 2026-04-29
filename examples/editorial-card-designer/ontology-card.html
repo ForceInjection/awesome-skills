@@ -1,0 +1,712 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>知识图谱本体管理 · Ontology Skill Card</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@700;900&family=Noto+Sans+SC:wght@400;500;700&family=Oswald:wght@500;700&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #ffffff;
+        --ink: #0c2d45;
+        --ink-soft: #2a4a64;
+        --muted: #5a8aa8;
+        --line: #d9e4ec;
+        --accent: #0083cb;
+        --accent-dark: #006699;
+        --tint: rgba(0, 131, 203, 0.06);
+        --tint-strong: rgba(0, 131, 203, 0.12);
+        --canvas-width: 1920px;
+        --canvas-height: 1080px;
+        --card-padding: 56px;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        background: var(--paper);
+        width: 100%;
+        height: 100%;
+      }
+
+      body {
+        font-family: "Inter", "Noto Sans SC", "PingFang SC", "Hiragino Sans GB",
+          sans-serif;
+        color: var(--ink);
+      }
+
+      .frame {
+        width: var(--canvas-width);
+        height: var(--canvas-height);
+        display: grid;
+        place-items: stretch;
+      }
+
+      .card {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background: var(--paper);
+        padding: var(--card-padding);
+        overflow: hidden;
+        display: grid;
+        grid-template-rows: auto auto 1fr 120px;
+        gap: 22px;
+      }
+
+      .card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        opacity: 0.04;
+        background-image:
+          radial-gradient(
+            circle at 20% 20%,
+            rgba(0, 131, 203, 0.6) 0.5px,
+            transparent 0.8px
+          ),
+          radial-gradient(
+            circle at 80% 40%,
+            rgba(0, 131, 203, 0.5) 0.4px,
+            transparent 0.7px
+          );
+        background-size: 8px 8px, 11px 11px;
+      }
+
+      /* ================= Header band ================= */
+      .header-band {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 24px;
+        padding-bottom: 14px;
+        border-bottom: 2px solid var(--line);
+      }
+
+      .meta {
+        margin: 0;
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .meta-accent {
+        color: var(--accent);
+      }
+
+      .ratio-tag {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--muted);
+        text-transform: uppercase;
+      }
+
+      /* ================= Hero row ================= */
+      .hero {
+        display: grid;
+        grid-template-columns: 1.35fr 1fr;
+        gap: 48px;
+        align-items: stretch;
+      }
+
+      .hero-left {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 16px;
+      }
+
+      .kicker {
+        margin: 0;
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.26em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+
+      .title {
+        margin: 0;
+        font-family: "Noto Serif SC", "Songti SC", serif;
+        font-size: 88px;
+        font-weight: 900;
+        line-height: 0.98;
+        letter-spacing: -0.03em;
+        color: var(--ink);
+      }
+
+      .title em {
+        font-style: normal;
+        color: var(--accent);
+      }
+
+      .bar {
+        width: 132px;
+        height: 6px;
+        background: var(--accent);
+      }
+
+      .deck {
+        margin: 0;
+        font-size: 20px;
+        line-height: 1.6;
+        color: var(--ink-soft);
+        max-width: 700px;
+      }
+
+      /* --- Stats cluster --- */
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 18px 22px;
+        padding: 26px 28px;
+        background: var(--tint);
+        border-left: 6px solid var(--accent);
+        align-content: center;
+      }
+
+      .stat {
+        display: grid;
+        gap: 4px;
+      }
+
+      .stat-num {
+        font-family: "Oswald", "Inter", sans-serif;
+        font-size: 54px;
+        font-weight: 700;
+        line-height: 1;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+      }
+
+      .stat-num span {
+        font-size: 22px;
+        color: var(--accent);
+        margin-left: 4px;
+        font-weight: 700;
+      }
+
+      .stat-label {
+        font-size: 13px;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: var(--muted);
+        font-weight: 700;
+      }
+
+      /* ================= Main body ================= */
+      .body-grid {
+        display: grid;
+        grid-template-columns: 1.25fr 1fr;
+        gap: 28px;
+        min-height: 0;
+      }
+
+      .panel {
+        position: relative;
+        padding: 24px 28px 24px;
+        background: var(--tint);
+        border-top: 6px solid var(--accent);
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .panel > .spacer {
+        flex: 1 1 auto;
+        min-height: 10px;
+      }
+
+      .contract-note {
+        margin: 0;
+        padding: 14px 16px;
+        background: #ffffff;
+        border-left: 4px solid var(--accent);
+        display: grid;
+        gap: 4px;
+      }
+
+      .contract-note .subhead {
+        margin: 0;
+        color: var(--accent);
+      }
+
+      .contract-note p {
+        margin: 0;
+        font-size: 14px;
+        line-height: 1.5;
+        color: var(--ink-soft);
+      }
+
+      .panel-muted {
+        background: #f6f9fb;
+        border-top-color: var(--accent-dark);
+      }
+
+      .panel-head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .panel-title {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-size: 28px;
+        font-weight: 900;
+        line-height: 1.1;
+        color: var(--ink);
+        letter-spacing: -0.01em;
+      }
+
+      .panel-index {
+        font-family: "Oswald", sans-serif;
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--accent);
+      }
+
+      .panel-lede {
+        margin: 0;
+        font-size: 16px;
+        line-height: 1.55;
+        color: var(--ink-soft);
+      }
+
+      .panel-lede b {
+        color: var(--ink);
+        font-weight: 700;
+      }
+
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .pill {
+        font-family: "Inter", "Noto Sans SC", sans-serif;
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--accent-dark);
+        background: #ffffff;
+        border: 1.5px solid var(--accent);
+        padding: 5px 11px;
+        border-radius: 2px;
+        letter-spacing: 0.02em;
+      }
+
+      .pill-ghost {
+        border-color: var(--line);
+        color: var(--ink-soft);
+      }
+
+      .constraint-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px 18px;
+        padding-top: 12px;
+        border-top: 1.5px dashed var(--line);
+      }
+
+      .c-item {
+        display: grid;
+        gap: 3px;
+      }
+
+      .c-head {
+        margin: 0;
+        font-family: "Noto Sans SC", "Inter", sans-serif;
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.01em;
+      }
+
+      .c-desc {
+        margin: 0;
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--ink-soft);
+      }
+
+      .c-desc code {
+        font-family: "Inter", monospace;
+        color: var(--accent-dark);
+        font-weight: 600;
+        background: #ffffff;
+        padding: 0 5px;
+      }
+
+      .scenario-list {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        gap: 6px;
+        flex: 1 1 auto;
+      }
+
+      .scenario {
+        padding: 6px 0 8px;
+        border-bottom: 1px dashed var(--line);
+      }
+
+      .scenario-list > .scenario:last-child {
+        border-bottom: none;
+      }
+
+      .scenario-row {
+        display: grid;
+        grid-template-columns: 44px 1fr;
+        gap: 14px;
+        align-items: start;
+      }
+
+      .scenario-num {
+        font-family: "Oswald", sans-serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+        letter-spacing: 0.02em;
+      }
+
+      .scenario-body {
+        display: grid;
+        gap: 3px;
+      }
+
+      .scenario-title {
+        margin: 0;
+        font-family: "Noto Sans SC", "Inter", sans-serif;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--ink);
+        line-height: 1.3;
+      }
+
+      .scenario-desc {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.5;
+        color: var(--ink-soft);
+      }
+
+      /* ================= Footer workflow strip ================= */
+      .workflow {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        gap: 24px;
+        align-items: center;
+        padding-top: 20px;
+        border-top: 2px solid var(--line);
+        min-height: 0;
+      }
+
+      .workflow-label {
+        display: grid;
+        gap: 4px;
+        padding-right: 22px;
+        border-right: 2px solid var(--line);
+      }
+
+      .workflow-label .subhead {
+        margin: 0;
+        font-family: "Oswald", sans-serif;
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--muted);
+      }
+
+      .workflow-label .cn {
+        margin: 0;
+        font-family: "Noto Serif SC", serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--ink);
+        letter-spacing: 0.02em;
+        line-height: 1.1;
+      }
+
+      .steps {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 12px;
+        align-items: center;
+        padding: 14px 14px;
+        background: #ffffff;
+        border: 1.5px solid var(--line);
+        border-left: 4px solid var(--accent);
+        min-height: 70px;
+      }
+
+      .step-num {
+        font-family: "Oswald", sans-serif;
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--accent);
+        line-height: 1;
+      }
+
+      .step-text {
+        font-size: 14px;
+        line-height: 1.35;
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      /* ================= Mobile fallback ================= */
+      @media (max-width: 900px) {
+        html,
+        body {
+          height: auto;
+        }
+        .frame {
+          width: 100%;
+          height: auto;
+        }
+        .card {
+          height: auto;
+          padding: 24px;
+          grid-template-rows: none;
+        }
+        .hero,
+        .body-grid,
+        .workflow {
+          grid-template-columns: 1fr;
+        }
+        .title {
+          font-size: 44px;
+        }
+        .steps {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .workflow-label {
+          border-right: none;
+          padding-right: 0;
+          border-bottom: 2px solid var(--line);
+          padding-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="frame">
+      <article class="card">
+        <!-- Header band -->
+        <header class="header-band">
+          <p class="meta">
+            Agent Skills · Memory Layer
+            <span class="meta-accent">// Density&nbsp;High</span>
+          </p>
+          <span class="ratio-tag">16 : 9 · Editorial Card</span>
+        </header>
+
+        <!-- Hero row -->
+        <section class="hero">
+          <div class="hero-left">
+            <p class="kicker">§ 1.15 · Ontology Skill</p>
+            <h1 class="title">知识图谱<em>本体管理</em></h1>
+            <div class="bar"></div>
+            <p class="deck">
+              一套类型化的知识图谱系统，为智能体提供结构化记忆存储与跨技能状态共享——
+              扮演<b> 智能体记忆层与协作基座 </b>的角色，而非又一个单一职责的工具型技能。
+            </p>
+          </div>
+
+          <aside class="stats" aria-label="核心指标">
+            <div class="stat">
+              <div class="stat-num">16<span>类</span></div>
+              <div class="stat-label">Entity Types</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">15<span>种</span></div>
+              <div class="stat-label">Relation Types</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">JSONL</div>
+              <div class="stat-label">Append-only Log</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">DFS</div>
+              <div class="stat-label">Cycle Detection</div>
+            </div>
+          </aside>
+        </section>
+
+        <!-- Main body: left heavy concept + right scenarios -->
+        <section class="body-grid">
+          <section class="panel">
+            <header class="panel-head">
+              <h2 class="panel-title">实体-关系模型 · 可验证图谱</h2>
+              <span class="panel-index">01 / CORE</span>
+            </header>
+            <p class="panel-lede">
+              基于 <b>Entity-Relation</b> 模型构建可验证知识图谱，覆盖
+              <b>人员 · 工作 · 时间地点 · 信息 · 资源 · 元数据</b> 六大典型领域。
+            </p>
+            <div>
+              <p class="subhead" style="margin:0 0 8px">Entity Types · 16 种核心实体</p>
+              <div class="pill-row">
+                <span class="pill">Person</span>
+                <span class="pill">Project</span>
+                <span class="pill">Task</span>
+                <span class="pill">Event</span>
+                <span class="pill">Document</span>
+                <span class="pill pill-ghost">… +11</span>
+              </div>
+            </div>
+            <div>
+              <p class="subhead" style="margin:0 0 8px">Relation Types · 15 种关系</p>
+              <div class="pill-row">
+                <span class="pill">has_owner</span>
+                <span class="pill">blocks</span>
+                <span class="pill">depends_on</span>
+                <span class="pill pill-ghost">… +12</span>
+              </div>
+            </div>
+            <span class="spacer"></span>
+            <aside class="contract-note">
+              <p class="subhead">Skill Contract · 技能契约模式</p>
+              <p>
+                定义其他技能对本体的<b style="color:var(--ink)">读 / 写依赖声明</b>，为多技能协同提供可组合的接口单。
+              </p>
+            </aside>
+            <div class="constraint-grid">
+              <div class="c-item">
+                <p class="c-head">属性约束</p>
+                <p class="c-desc">必填 / 枚举 / 禁止字段——于 <code>create</code> 即时校验</p>
+              </div>
+              <div class="c-item">
+                <p class="c-head">关系与基数</p>
+                <p class="c-desc">类型合法性 + cardinality——由 <code>validate</code> 批量复核</p>
+              </div>
+              <div class="c-item">
+                <p class="c-head">DFS 环路检测</p>
+                <p class="c-desc">acyclic 关系全量图遍历校验，拒绝依赖环</p>
+              </div>
+              <div class="c-item">
+                <p class="c-head">JSONL 事件日志</p>
+                <p class="c-desc">追加式落盘，天然提供完整可审计轨迹</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="panel panel-muted">
+            <header class="panel-head">
+              <h2 class="panel-title">四大使用场景</h2>
+              <span class="panel-index">02 / WHEN</span>
+            </header>
+            <ol class="scenario-list">
+              <li class="scenario">
+                <div class="scenario-row">
+                  <span class="scenario-num">01</span>
+                  <div class="scenario-body">
+                    <p class="scenario-title">跨会话持久化记忆</p>
+                    <p class="scenario-desc">
+                      将事实落地为可查询、可验证的结构化图谱，避免上下文窗口丢失导致的遗忘——智能体真正「记住」世界。
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="scenario">
+                <div class="scenario-row">
+                  <span class="scenario-num">02</span>
+                  <div class="scenario-body">
+                    <p class="scenario-title">多技能状态共享</p>
+                    <p class="scenario-desc">
+                      邮件技能产生 Commitment、任务技能消费后生成 Task——统一读写契约消除跨技能数据格式割裂。
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="scenario">
+                <div class="scenario-row">
+                  <span class="scenario-num">03</span>
+                  <div class="scenario-body">
+                    <p class="scenario-title">计划即图变换</p>
+                    <p class="scenario-desc">
+                      多步任务建模为带约束校验的图操作序列，任一步违反即可整体回滚，显著提升长流程的可靠性。
+                    </p>
+                  </div>
+                </div>
+              </li>
+              <li class="scenario">
+                <div class="scenario-row">
+                  <span class="scenario-num">04</span>
+                  <div class="scenario-body">
+                    <p class="scenario-title">依赖与影响分析</p>
+                    <p class="scenario-desc">
+                      图遍历查询：X 任务的上游阻塞者是谁、proj_001 下所有未完成任务的负责人——面向项目管理的即席问答。
+                    </p>
+                  </div>
+                </div>
+              </li>
+            </ol>
+          </section>
+        </section>
+
+        <!-- Footer: end-to-end workflow strip -->
+        <footer class="workflow">
+          <div class="workflow-label">
+            <p class="subhead">End-to-End</p>
+            <p class="cn">网站重构示例</p>
+          </div>
+          <div class="steps">
+            <div class="step">
+              <span class="step-num">01</span>
+              <span class="step-text">初始化 JSONL 存储</span>
+            </div>
+            <div class="step">
+              <span class="step-num">02</span>
+              <span class="step-text">声明 schema 约束</span>
+            </div>
+            <div class="step">
+              <span class="step-num">03</span>
+              <span class="step-text">创建核心实体</span>
+            </div>
+            <div class="step">
+              <span class="step-num">04</span>
+              <span class="step-text">建立关系</span>
+            </div>
+            <div class="step">
+              <span class="step-num">05</span>
+              <span class="step-text">查询与遍历</span>
+            </div>
+            <div class="step">
+              <span class="step-num">06</span>
+              <span class="step-text">全量校验守门</span>
+            </div>
+          </div>
+        </footer>
+      </article>
+    </main>
+  </body>
+</html>

@@ -22,6 +22,7 @@
     - [1.13 Draw.io 架构图设计器](#113-drawio-架构图设计器)
     - [1.14 PPTX 读取器](#114-pptx-读取器)
     - [1.15 知识图谱本体管理](#115-知识图谱本体管理)
+    - [1.16 杂志编辑式信息卡设计器](#116-杂志编辑式信息卡设计器)
   - [2. 核心设计理念](#2-核心设计理念)
     - [2.1 语言规范：受众隔离](#21-语言规范受众隔离)
     - [2.2 产物定位：为什么是生成 SKILL 而非 Agent？](#22-产物定位为什么是生成-skill-而非-agent)
@@ -46,7 +47,7 @@
 
 ## 1. 核心技能介绍
 
-针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 15 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
+针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 16 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
 
 ### 1.1 深度代码阅读
 
@@ -312,6 +313,33 @@ python3 scripts/ontology.py validate
 ```
 
 执行完毕后，`memory/ontology/graph.jsonl` 中会沉淀一份完整的、可审计的事件日志；后续任何技能（如代码提交助手、OpenSpec 开发辅助）均可基于同一份图谱读取项目上下文或追加新的实体与关系，实现真正的**跨技能协同记忆**——这正是上文“多技能状态共享”场景在工程落地时的标准形态。
+
+### 1.16 杂志编辑式信息卡设计器
+
+> 原始技能来自：[shaom/infocard-skills](https://github.com/shaom/infocard-skills)
+>
+> 本仓库改动：将技能目录从上游的 `editorial-card-screenshot` 更名为语义更清晰的 [`editorial-card-designer`](./skills/editorial-card-designer)（突出“设计 + 截图”双阶段产出）；在 `SKILL.md` 的 `metadata.clawdbot.requires` 中补齐 Chrome / Chromium 二进制依赖以及 `trim_card_bottom.sh` 所需的 Python + Pillow 可选依赖；加固 [`scripts/capture_card.sh`](./skills/editorial-card-designer/scripts/capture_card.sh) 的跨平台 Chrome 可执行文件解析顺序，并将两个 shell 脚本改用 `#!/usr/bin/env bash` 以便在最小化 Linux 镜像中开箱即用；此外对面向 Agent 的英文 `SKILL.md` 与面向中文场景的 [`references/editorial-card-prompt.md`](./skills/editorial-card-designer/references/editorial-card-prompt.md) 做了受众隔离。
+
+[`editorial-card-designer`](./skills/editorial-card-designer) 技能用于把一段文字或核心信息转化为一张**现代杂志编辑设计（Editorial Design）+ 瑞士国际主义平面设计风格（Swiss / International Typographic Style）**的高密度 HTML 信息卡，并直接渲染成与目标比例严格对齐的 PNG 截图，典型用途涵盖公众号封面、社交平台卡片、技术文档配图与演示开场图。
+
+该技能内置 8 种固定比例预设——`3:4`（竖版信息卡）、`4:3`（横版信息卡）、`1:1`（方形贴文）、`16:9`（标准宽屏封面）、`9:16`（故事 / Reel 竖封）、`2.35:1`（电影级宽条）、`3:1`（个人主页横幅）、`5:2`（超宽条带）——并为每种比例在 [`references/recommended-skeletons.md`](./skills/editorial-card-designer/references/recommended-skeletons.md) 中提供了可复用的版式骨架（Hero + Stats + 主次模块 + 页脚条带等），避免简单地把同一套布局强行缩放到不同比例。在渲染层面，[`scripts/capture_card.sh`](./skills/editorial-card-designer/scripts/capture_card.sh) 以 headless Chrome 按预设像素（如 `16:9 → 1920×1080`）截图，强制 `--force-device-scale-factor=1` 保证像素对齐；在字体层面，默认引入 `Noto Serif SC` / `Noto Sans SC` / `Oswald` / `Inter` 的 Google Fonts 组合，并要求同时声明本地回退字体栈，避免远程字体加载失败导致版式漂移。对于偶发的底部留白，还额外提供了可选后处理脚本 [`scripts/trim_card_bottom.sh`](./skills/editorial-card-designer/scripts/trim_card_bottom.sh)（依赖 Python + Pillow），按背景色检测并裁掉多余底边。
+
+使用示例如下：
+
+```bash
+# 步骤 1：根据 SKILL.md 指示生成一份与目标比例严格匹配的 HTML（例如 1920×1080 用于 16:9）
+#        可从 assets/card-template.html 的最小骨架开始，填入标题、摘要、模块与页脚条带
+
+# 步骤 2：用 headless Chrome 截图为 PNG
+./skills/editorial-card-designer/scripts/capture_card.sh \
+    path/to/your-card.html path/to/your-card.png 16:9
+
+# 步骤 3（可选）：若 PNG 底部出现因字体失败或网格塌陷导致的留白，可做兜底裁剪
+./skills/editorial-card-designer/scripts/trim_card_bottom.sh \
+    path/to/your-card.png path/to/your-card.trimmed.png
+```
+
+**配套示例目录 `examples/editorial-card-designer/`**：为了让新用户直观理解该技能的产出形态，本仓库在 [`examples/editorial-card-designer/`](./examples/editorial-card-designer) 下沉淀了端到端的真实示例。当前收录了一份基于本 README §1.15 *知识图谱本体管理* 段落生成的 16:9 信息卡：[`ontology-card.html`](./examples/editorial-card-designer/ontology-card.html) 为完整的源 HTML（可直接在浏览器打开或二次编辑样式），[`ontology-card.png`](./examples/editorial-card-designer/ontology-card.png) 为用 `capture_card.sh` 渲染出的 1920×1080 PNG 成品。后续本仓库新增的信息卡示例会统一沉淀到该目录，形成可检索的**版式 + 比例 + 内容密度**三维度参考样例集，方便开发者在调用技能前对照挑选最贴近自己内容的骨架。
 
 ---
 
