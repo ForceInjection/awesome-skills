@@ -1,19 +1,18 @@
-# 让任意一段文字秒变杂志级信息卡 —— 认识 `editorial-card-designer`
+# 告别 Figma 手动排版：一句命令，让文字秒变杂志级封面
 
 > 一款开源的 Agent Skill：把一段纯文字转成瑞士国际主义风格的高密度编辑卡，并直接输出像素级对齐的 PNG。
 
-## 为什么还需要一款「信息卡生成器」？
+## 先看效果
 
-如果你在运营公众号、维护技术博客，或者每周都要交付产品演示图，大概率都踩过这个循环：
+下面这张信息卡，从纯文字到成品，只花了一条命令的时间。排版、字体、网格全部自动完成，没有打开任何设计软件。
 
-1. 认真打磨一段精炼的文字。
-2. 打开 Figma / Keynote / Canva。
-3. 跟网格、字体、导出分辨率较劲半小时。
-4. 最后得到的封面，还是「差了点意思」。
+![editorial-card-designer-intro.png](./editorial-card-designer-intro.png)
+
+如果你在运营公众号、维护技术博客，或者每周都要交付产品演示图，大概率都踩过这个循环：打开 Figma，调网格、换字体、折腾导出分辨率。半小时后，封面还是差点意思。
 
 [`editorial-card-designer`](https://github.com/ForceInjection/awesome-skills/tree/main/skills/editorial-card-designer) 技能 —— 收录于 [`awesome-skills`](https://github.com/ForceInjection/awesome-skills) 仓库 —— 把整套流程压缩成**一条命令**，同时强制让产出符合**现代杂志编辑设计（Editorial Design）**与**瑞士国际主义平面设计风格（Swiss / International Typographic Style）**的视觉语言。
 
-换句话说：大模型写文案、大模型排网格、无头 Chrome 截图 —— 全流程可复现。
+大模型写文案、大模型排网格、无头 Chrome 截图 —— 全流程可复现。
 
 ## 它到底做了什么？
 
@@ -48,7 +47,7 @@
 默认字体栈将 `Noto Serif SC` / `Noto Sans SC`（中文正文）与 `Oswald` / `Inter`（拉丁展示字 + UI）组合使用，统一来自 Google Fonts。**同时强制声明本地回退字体栈**，所以即便网络抖动，也不会让你的版式悄悄塌回 Times New Roman。
 
 **3. 底部留白兜底。**
-偶尔会出现网格在 PNG 底部留下一条浅色空白条。可选的后处理脚本 [`scripts/trim_card_bottom.sh`](https://github.com/ForceInjection/awesome-skills/tree/main/skills/editorial-card-designer/scripts/trim_card_bottom.sh)（依赖 Python + Pillow）会按背景色检测并自动裁切多余底边 —— 最终成品永远填满画面。
+由于无头 Chrome 的字体渲染与常规浏览器存在细微差异，页脚偶尔会被裁出视口。`capture_card.sh` 内部已预留 120px 高度缓冲确保完整捕获；后处理脚本 [`scripts/trim_card_bottom.sh`](https://github.com/ForceInjection/awesome-skills/tree/main/skills/editorial-card-designer/scripts/trim_card_bottom.sh)（依赖 Python + Pillow）再按固定像素 `--bottom 120` 精确裁回目标尺寸 —— 最终成品永远填满画面。
 
 ## 三步工作流
 
@@ -57,13 +56,14 @@
 #        （例如 16:9 对应 1920×1080）。从 assets/card-template.html 的
 #        最小骨架开始，填入标题、摘要、模块与页脚条带。
 
-# 步骤 2：用无头 Chrome 截图
+# 步骤 2：用无头 Chrome 截图（脚本内部已预留 120px 高度缓冲，防止字体渲染差异导致页脚被裁）
 ./skills/editorial-card-designer/scripts/capture_card.sh \
     path/to/your-card.html path/to/your-card.png 16:9
 
-# 步骤 3（可选）：兜底裁剪底部残留留白
+# 步骤 3（推荐）：按固定像素裁掉 120px 底部缓冲，恢复精确目标尺寸
+#        —— 若跳过此步，成品高度将为目标值 +120px（例如 1920×1200）。
 ./skills/editorial-card-designer/scripts/trim_card_bottom.sh \
-    path/to/your-card.png path/to/your-card.trimmed.png
+    path/to/your-card.png path/to/your-card.trimmed.png --bottom 120
 ```
 
 整条流水线到此结束。没有设计工具、没有手动导出对话框、不用再猜 DPI。
@@ -82,7 +82,7 @@
 为了让新用户在动手前先「看见」产出的形态，本仓库在 [`examples/editorial-card-designer/`](https://github.com/ForceInjection/awesome-skills/tree/main/examples/editorial-card-designer) 下沉淀了一份完整示例：
 
 - [`editorial-card-designer-intro.html`](./editorial-card-designer-intro.html) —— 完整源 HTML，可直接在浏览器中打开，也可以 fork 一份二次调样式。
-- [`editorial-card-designer-intro.png`](./editorial-card-designer-intro.png) —— 用 `capture_card.sh` 渲染出的 1920×1080 PNG 成品。
+- [`editorial-card-designer-intro.png`](./editorial-card-designer-intro.png) —— 先用 `capture_card.sh` 截图、再经 `trim_card_bottom.sh --bottom 120` 裁剪得到的 1920×1080 PNG 成品。
 
 源文本是哪段？正是本文件本身。一段关于 `editorial-card-designer` 技能的介绍文字，被技能转换成了一张可扫视、网格驱动的 16:9 封面 —— 用技能的产出物来介绍技能自己。
 
@@ -95,7 +95,17 @@
 - **技术写作者**：需要给长文配上图解式开场图。
 - **任何构建 Agent 流水线的人**：你的交付物不只是文字，还包含图像。
 
-克隆仓库，把 Agent 指向 `editorial-card-designer/SKILL.md`，让它专注地替你做好这件原本要吞掉半个下午的事。
+花 5 分钟试一试：
 
-> **仓库路径：** `awesome-skills` → `skills/editorial-card-designer/`
-> **上游致谢：** [`shaom/infocard-skills`](https://github.com/shaom/infocard-skills)
+```bash
+git clone https://github.com/ForceInjection/awesome-skills.git
+cd awesome-skills/skills/editorial-card-designer
+```
+
+然后让 Agent 读取 `SKILL.md`，你会立刻理解本文的每一段描述。
+
+---
+
+**仓库路径** `awesome-skills` → `skills/editorial-card-designer/`
+
+**上游致谢** [`shaom/infocard-skills`](https://github.com/shaom/infocard-skills)

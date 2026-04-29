@@ -47,11 +47,11 @@
         width: 100%;
         height: 100%;
         background: var(--paper);
-        padding: 48px 72px 40px;
+        padding: 32px 64px 32px;
         overflow: hidden;
         display: grid;
-        grid-template-rows: auto auto auto auto;
-        row-gap: 18px;
+        grid-template-rows: auto auto 1fr auto;
+        row-gap: 12px;
       }
 
       .card::before {
@@ -71,62 +71,63 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-bottom: 12px;
+        height: 14px;
         border-bottom: 1px solid var(--rule);
       }
 
       .meta-tags {
         display: flex;
-        gap: 14px;
+        gap: 12px;
         align-items: center;
         font-family: "Oswald", "Inter", sans-serif;
-        font-size: 13px;
+        font-size: 11px;
         font-weight: 700;
         letter-spacing: 0.22em;
         text-transform: uppercase;
         color: var(--muted);
+        line-height: 1;
       }
 
       .meta-tags .dot {
-        width: 6px;
-        height: 6px;
+        width: 5px;
+        height: 5px;
         background: var(--accent);
         display: inline-block;
       }
 
       .meta-right {
         font-family: "Oswald", "Inter", sans-serif;
-        font-size: 12px;
-        letter-spacing: 0.28em;
+        font-size: 11px;
+        letter-spacing: 0.26em;
         text-transform: uppercase;
         color: var(--muted);
+        line-height: 1;
       }
 
       .meta-right b {
         color: var(--accent);
         font-weight: 700;
-        letter-spacing: 0.18em;
+        letter-spacing: 0.16em;
       }
 
       /* ========= HERO ========= */
       .hero {
         display: grid;
-        grid-template-columns: 1.35fr 0.85fr;
+        grid-template-columns: 1.45fr 0.55fr;
         column-gap: 48px;
         align-items: start;
-        padding-top: 4px;
       }
 
       .hero-left {
         display: grid;
-        row-gap: 14px;
+        row-gap: 8px;
       }
 
       .kicker {
         font-family: "Oswald", "Inter", sans-serif;
-        font-size: 14px;
+        font-size: 13px;
         font-weight: 700;
-        letter-spacing: 0.32em;
+        letter-spacing: 0.28em;
         text-transform: uppercase;
         color: var(--accent);
         margin: 0;
@@ -135,9 +136,9 @@
       .title {
         margin: 0;
         font-family: "Noto Serif SC", "Source Han Serif SC", serif;
-        font-weight: 900;
-        font-size: 68px;
-        line-height: 1.02;
+        font-weight: 1000;
+        font-size: 72px;
+        line-height: 1.05;
         letter-spacing: -0.02em;
         color: var(--ink);
       }
@@ -148,18 +149,18 @@
       }
 
       .bar {
-        width: 128px;
-        height: 6px;
+        width: 120px;
+        height: 5px;
         background: var(--accent);
-        margin: 2px 0 2px;
+        margin: 2px 0;
       }
 
       .deck {
         margin: 0;
         font-size: 18px;
-        line-height: 1.45;
+        line-height: 1.55;
         color: var(--sub);
-        max-width: 780px;
+        max-width: 940px;
       }
 
       .deck b {
@@ -167,28 +168,29 @@
         font-weight: 700;
       }
 
-      /* ========= HERO RIGHT: STAT CLUSTER ========= */
+      /* ========= STAT CLUSTER ========= */
       .stat-cluster {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        gap: 14px;
+        gap: 12px;
       }
 
       .stat {
-        padding: 14px 18px 12px;
+        padding: 16px 18px 14px;
         background: var(--tint);
-        border-top: 5px solid var(--accent);
+        border-top: 4px solid var(--accent);
       }
 
       .stat.big {
         grid-column: span 2;
         background: var(--tint-strong);
+        border-top-width: 5px;
       }
 
       .stat-num {
         font-family: "Oswald", "Inter", sans-serif;
         font-weight: 700;
-        font-size: 66px;
+        font-size: 64px;
         line-height: 1;
         color: var(--accent);
         letter-spacing: -0.02em;
@@ -201,7 +203,7 @@
       .stat-label {
         margin-top: 6px;
         font-size: 13px;
-        letter-spacing: 0.14em;
+        letter-spacing: 0.12em;
         text-transform: uppercase;
         color: var(--sub);
         font-weight: 700;
@@ -217,23 +219,25 @@
       /* ========= MODULES ========= */
       .modules {
         display: grid;
-        grid-template-columns: 1.3fr 1fr 1fr;
-        column-gap: 22px;
+        grid-template-columns: 1.4fr 1fr 1fr;
+        column-gap: 18px;
         align-items: stretch;
+        min-height: 0;
       }
 
       .mod {
-        padding: 20px 22px 18px;
+        padding: 20px 22px 16px;
         border-top: 4px solid var(--accent);
         background: var(--tint);
         display: flex;
         flex-direction: column;
         gap: 10px;
+        overflow: hidden;
       }
 
       .mod.primary {
         background: #f4f9fd;
-        border-top-width: 6px;
+        border-top-width: 5px;
       }
 
       .mod-hint {
@@ -250,17 +254,17 @@
 
       .mod-hint span {
         color: var(--sub);
-        letter-spacing: 0.08em;
+        letter-spacing: 0.06em;
         text-transform: none;
         font-weight: 500;
         font-family: "Inter", "Noto Sans SC", sans-serif;
-        font-size: 12.5px;
+        font-size: 12px;
       }
 
       .mod-index {
         font-family: "Oswald", "Inter", sans-serif;
-        font-size: 13px;
-        letter-spacing: 0.22em;
+        font-size: 12px;
+        letter-spacing: 0.2em;
         color: var(--accent);
         font-weight: 700;
         text-transform: uppercase;
@@ -278,13 +282,13 @@
 
       .mod-body {
         margin: 0;
-        font-size: 15.5px;
-        line-height: 1.55;
+        font-size: 14.5px;
+        line-height: 1.5;
         color: var(--sub);
       }
 
       .mod ul {
-        margin: 2px 0 0;
+        margin: 0;
         padding: 0;
         list-style: none;
         display: grid;
@@ -303,8 +307,8 @@
         content: "";
         position: absolute;
         left: 0;
-        top: 8px;
-        width: 9px;
+        top: 7px;
+        width: 8px;
         height: 2px;
         background: var(--accent);
       }
@@ -319,10 +323,10 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding-top: 10px;
+        height: 18px;
         border-top: 1px solid var(--rule);
-        font-size: 13px;
-        letter-spacing: 0.08em;
+        font-size: 12px;
+        letter-spacing: 0.06em;
         color: var(--muted);
       }
 
@@ -340,7 +344,7 @@
       .footer .right {
         font-family: "Oswald", "Inter", sans-serif;
         text-transform: uppercase;
-        letter-spacing: 0.26em;
+        letter-spacing: 0.22em;
         color: var(--muted);
       }
 
@@ -387,7 +391,7 @@
         <header class="header">
           <div class="meta-tags">
             <span class="dot"></span>
-            <span>AGENT&nbsp;SKILL · EDITORIAL&nbsp;DESIGN</span>
+            <span>Agent&nbsp;Skill · Editorial&nbsp;Design</span>
             <span>·</span>
             <span>Swiss / International Typographic Style</span>
           </div>
