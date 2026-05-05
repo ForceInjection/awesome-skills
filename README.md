@@ -23,6 +23,7 @@
     - [1.14 PPTX 读取器](#114-pptx-读取器)
     - [1.15 知识图谱本体管理](#115-知识图谱本体管理)
     - [1.16 杂志编辑式信息卡设计器](#116-杂志编辑式信息卡设计器)
+    - [1.17 技术文章大纲规划器](#117-技术文章大纲规划器)
   - [2. 核心设计理念](#2-核心设计理念)
     - [2.1 语言规范：受众隔离](#21-语言规范受众隔离)
     - [2.2 产物定位：为什么是生成 SKILL 而非 Agent？](#22-产物定位为什么是生成-skill-而非-agent)
@@ -47,7 +48,7 @@
 
 ## 1. 核心技能介绍
 
-针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 16 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
+针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 17 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
 
 ### 1.1 深度代码阅读
 
@@ -341,6 +342,20 @@ python3 scripts/ontology.py validate
 ```
 
 **配套示例目录 `examples/editorial-card-designer/`**：为了让新用户直观理解该技能的产出形态，本仓库在 [`examples/editorial-card-designer/`](./examples/editorial-card-designer) 下沉淀了端到端的真实示例。当前收录了一份基于本技能 [`editorial-card-designer-intro.md`](./examples/editorial-card-designer/editorial-card-designer-intro.md) 生成的 16:9 信息卡：[`editorial-card-designer-intro.html`](./examples/editorial-card-designer/editorial-card-designer-intro.html) 为完整的源 HTML（可直接在浏览器打开或二次编辑样式），[`editorial-card-designer-intro.png`](./examples/editorial-card-designer/editorial-card-designer-intro.png) 为先经 `capture_card.sh` 截图、再经 `trim_card_bottom.sh --bottom 120` 裁剪得到的 1920×1080 PNG 成品。后续本仓库新增的信息卡示例会统一沉淀到该目录，形成可检索的**版式 + 比例 + 内容密度**三维度参考样例集，方便开发者在调用技能前对照挑选最贴近自己内容的骨架。
+
+### 1.17 技术文章大纲规划器
+
+[`tech-outline-planner`](./skills/tech-outline-planner) 技能用于为高质量的技术文章（特别是系统、AI 或底层架构类）设计“架构评审级”的大纲结构。
+
+该技能采用**组合叙事结构**：外层使用 Context-first 风格（背景-问题-方案-权衡）确保宏观逻辑的严密性；内层使用 Process narrative 程序化描述确保技术细节的自然衔接。在编写过程中，它严格遵循“给定信息优先于新信息” (Given before new) 的认知原则，帮助作者构建具备深度且易于理解的技术叙事。
+
+使用示例如下：
+
+```bash
+# 触发技术文章大纲规划技能
+# 附带你需要规划的主题或核心意图
+/tech-outline-planner [技术主题/核心痛点/方案草案]
+```
 
 ---
 
