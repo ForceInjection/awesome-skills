@@ -42,6 +42,7 @@
     - [5.1 MiniMax-AI 官方技能库](#51-minimax-ai-官方技能库)
     - [5.2 CUDA Code Skill 文档与技能](#52-cuda-code-skill-文档与技能)
     - [5.3 vLLM 官方 Agent 技能库](#53-vllm-官方-agent-技能库)
+    - [5.4 领域驱动设计 (DDD) 技能库](#54-领域驱动设计-ddd-技能库)
   - [6. `Skill` 单元测试](#6-skill-单元测试)
 
 ---
@@ -511,6 +512,16 @@ python3 scripts/ontology.py validate
 - **容器化部署**：提供 `vllm-deploy-docker` 技能，支持通过预构建镜像或源码编译的方式，快速部署支持 NVIDIA GPU 加速的 vLLM 容器，并启动兼容 OpenAI API 的服务。
 - **轻量级本地服务**：包含 `vllm-deploy-simple` 技能，能够自动检测硬件环境并安装 vLLM，在本地快速启动模型推理服务并提供测试与管理工具。
 - **性能基准测试**：提供 `vllm-prefix-cache-bench` 技能，支持使用固定提示词、真实数据集或合成模式，全面评估 vLLM 自动前缀缓存（Prefix Caching）机制的运行效率。
+
+### 5.4 领域驱动设计 (DDD) 技能库
+
+[ForceInjection/domain-driven-design-skills](https://github.com/ForceInjection/domain-driven-design-skills) 是由原力注入博主维护的领域驱动设计专属技能库。该项目将 DDD 的核心概念、战术设计模式和最佳实践封装为可复用的 Agent Skills，帮助开发者和 AI 编程助手在复杂业务系统中正确应用领域驱动设计方法论。
+
+其核心技能模块包括：
+
+- **战略设计**：涵盖限界上下文（Bounded Context）识别、上下文映射（Context Mapping）和子域划分等核心技能，支持复杂业务架构的系统性分析。
+- **战术设计**：提供实体（Entity）、值对象（Value Object）、聚合根（Aggregate Root）、领域服务（Domain Service）等 DDD 构建块的设计规范与实现指南。
+- **事件驱动架构**：包含领域事件（Domain Event）建模、事件溯源（Event Sourcing）和 CQRS 模式的实战技能，支持响应式系统的设计与实现。
 
 ---
 
