@@ -4,12 +4,12 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a curated collection of 17 Agent Skills maintained by the "Force Injection" (原力注入) blogger. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
+This is a curated collection of 17 Agent Skills maintained by the "Force Injection" (原力注入) blogger. `AGENTS.md` is the Chinese-language companion to this file — a narrative project overview rather than a technical reference. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
 
 ## Commands
 
 ```bash
-# Sync all skills to Trae and Qoder skill directories
+# Sync all skills to Claude Code (~/.claude/skills), Trae, and Qoder skill directories
 bash ./sync.sh
 
 # Run static unit tests for a skill (no LLM needed)
@@ -57,7 +57,7 @@ Skills use a three-layer loading strategy to avoid context overflow:
 
 The `unit-test/` framework has two layers:
 
-1. **Static tests** (`unit-test/tests/run_static.py`): No LLM dependency. Validates link formats, image paths, naming conventions, and sensitive info sanitization. These are CI must-pass items.
+1. **Static tests** (`unit-test/tests/run_static.py`): No LLM dependency. Validates link formats, image paths, naming conventions, and sensitive info sanitization. These are CI must-pass items. Currently only `doc-reviewer` and `md-translator` have static checks; other skills print a warning and exit 0.
 2. **End-to-end tests** (`unit-test/opencode-skill-eval.sh`): Runs the skill through OpenCode CLI, captures JSONL event traces, and asserts behavior (tool call sequences, output artifacts, token usage).
 
 Test fixtures live in `unit-test/fixtures/<skill-name>/`, per-skill configs in `unit-test/skills/<skill-name>/config.sh`, and static check rules in `unit-test/tests/<skill-name>/checks.py`.
@@ -70,3 +70,8 @@ Test fixtures live in `unit-test/fixtures/<skill-name>/`, per-skill configs in `
 ### Key design principle: SKILL over Agent
 
 The `code-reader` and `project-analyzer` skills output `SKILL.md` files rather than creating persistent agents. This keeps things decoupled and lightweight — any generic agent can load a skill file on demand to gain module-specific knowledge, avoiding role proliferation.
+
+### Supporting directories
+
+- **`docs/`**: Deep-dive analysis articles (`gstack-deep-dive.md`, `google-skill-patern.md`, `superpowers-deep-dive.md`) — educational content about Agent Skill design patterns, not skills themselves.
+- **`examples/`**: End-to-end usage examples for skills that produce visual or rendered output. Currently hosts `editorial-card-designer` examples (HTML source + rendered PNG). New skills with visual output should follow this pattern.

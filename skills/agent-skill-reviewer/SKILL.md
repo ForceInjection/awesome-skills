@@ -46,3 +46,7 @@ Present a structured review report to the user using the following format:
 - **Frontmatter**: Pass/Fail with details.
 - **Instructions**: Pass/Fail with details.
 - **Recommendations**: Provide actionable recommendations for any violations of best practices.
+
+## References
+
+- `references/best-practices.md` — Detailed best-practice checklist for agent skill directory structure, naming conventions, trigger descriptions, progressive disclosure, and language conventions. Load this when you need the full specification behind the review criteria.

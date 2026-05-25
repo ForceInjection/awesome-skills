@@ -71,7 +71,7 @@ This phase scans the repository structure to identify boundaries and dependencie
 
 This phase generates the foundational skill documents.
 
-For each selected module, dispatch a subagent with the prompt template from `tech-writer-prompt.md`.
+For each selected module, dispatch a subagent with the prompt template from `references/tech-writer-prompt.md`.
 
 **Subagent dispatch parameters:**
 
@@ -97,7 +97,7 @@ For each module that has generated skills, run the verification cycle:
 
 **Step 1 — Agent B / QA Engineer (question generation):**
 
-Dispatch a subagent with `qa-engineer-prompt.md`, using a lightweight/smaller model (e.g., Haiku-class).
+Dispatch a subagent with `references/qa-engineer-prompt.md`, using a lightweight/smaller model (e.g., Haiku-class).
 
 **Subagent dispatch parameters:**
 
@@ -119,7 +119,7 @@ Save the recommended questions (keep in context for Phase 6). Accumulate all ver
 
 **Step 2 — Agent C / Junior Dev (closed-book answer):**
 
-Dispatch a subagent with `junior-dev-prompt.md`.
+Dispatch a subagent with `references/junior-dev-prompt.md`.
 
 **Subagent dispatch parameters:**
 

@@ -56,7 +56,7 @@ For each identified core module, **invoke the `code-reader` skill** targeting th
 
 This phase extracts engineering practices from configuration files.
 
-Dispatch the DevOps Engineer agent (using `devops-engineer-prompt.md`).
+Dispatch the DevOps Engineer agent (using `references/devops-engineer-prompt.md`).
 
 - **Input**: All identified Infra Files (e.g., `Makefile`, `Dockerfile`, `.github/workflows/`, `pom.json`).
 - **Output**: A structured report covering Build Steps, Testing Strategies, and Deployment Topologies.
@@ -65,7 +65,7 @@ Dispatch the DevOps Engineer agent (using `devops-engineer-prompt.md`).
 
 This phase generates the final Comprehensive Project Documentation.
 
-Dispatch the Chief Architect agent by **reading and strictly following** `chief-architect-prompt.md`.
+Dispatch the Chief Architect agent by **reading and strictly following** `references/chief-architect-prompt.md`.
 
 - **Input**: The module documents generated in Phase 2, the infrastructure report from Phase 3, and the initial directory scan.
 - **Project Name**: You MUST extract the actual project name (e.g., from the repository directory name, `package.json`, or `go.mod`) and use it to replace all `{project-name}` placeholders in the output filename.
