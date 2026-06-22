@@ -536,3 +536,5 @@ python3 scripts/ontology.py validate
 - **测试用例与数据**：包含 `evals`（评估逻辑）、`fixtures`（测试数据，如供 `doc-reviewer` 和 `md-translator` 使用的示例文档）、`skills`（被测技能配置）以及 `tests`（具体的测试断言脚本）。
 
 通过系统化的单元测试，我们能够持续验证技能触发的精准度以及任务执行的可靠性。
+
+- [ai-delivery-spec](https://github.com/franklinxkk/ai-delivery-spec) — Spec-driven delivery framework for product managers — 4 delivery tiers, 0D triage, prototype testability, AI runtime governance, 5 domain modules
