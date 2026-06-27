@@ -490,6 +490,7 @@ python3 scripts/ontology.py validate
 
 其核心技能模块包括：
 
+- **[AI Delivery Spec](https://github.com/franklinxkk/ai-delivery-spec)** - Spec-driven delivery framework: PRD+FRR+AC-YAML+WBS from prototypes. Works with Claude Code/Cursor/Codex. v4.9.7.
 - **全栈与客户端开发**：涵盖前端 (`frontend-dev`)、全栈 (`fullstack-dev`)、Android (`android-native-dev`) 以及 iOS (`ios-application-dev`) 的系统性开发指南与规范。
 - **多媒体与创意生成**：提供着色器开发 (`shader-dev`) 与 GIF 动图生成 (`gif-sticker-maker`) 技能，结合 MiniMax 的图像和视频生成 API，实现高级视觉效果。
 - **专业文档处理**：包含针对 PDF (`minimax-pdf`)、PPTX (`pptx-generator`)、Excel (`minimax-xlsx`) 和 DOCX (`minimax-docx`) 的深度处理技能，支持从零生成、模板填充与格式重构。
