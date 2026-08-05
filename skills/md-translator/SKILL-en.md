@@ -1,8 +1,7 @@
 ---
 name: "md-translator"
-description: "将指定的本地 Markdown 文件翻译成指定语言（默认中文），并在文件名中添加语言标识后缀。当用户请求翻译本地 Markdown 文档时调用此技能。"
+description: "Translate a specified local Markdown file into a target language (default Chinese) and append a language identifier suffix to the filename. Invoke this skill when the user requests translation of a local Markdown document."
 ---
-> English version: [SKILL-en.md](SKILL-en.md)
 
 # Markdown Translator
 

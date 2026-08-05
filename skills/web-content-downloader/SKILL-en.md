@@ -2,7 +2,6 @@
 name: "web-content-downloader"
 description: "Downloads web pages and converts them to Markdown files, preserving the original language (no translation). Use when the user wants to download web content, save articles, or extract images from web pages."
 ---
-> English version: [SKILL-en.md](SKILL-en.md)
 
 # Web Content Downloader
 

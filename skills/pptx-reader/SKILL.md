@@ -2,6 +2,7 @@
 name: pptx-reader
 description: "理解、读取和分析 .pptx 幻灯片文件内容。当用户需要提取 PPT 文本或分析演示文稿时调用此技能。"
 ---
+> English version: [SKILL-en.md](SKILL-en.md)
 
 # PPTX 读取器技能
 

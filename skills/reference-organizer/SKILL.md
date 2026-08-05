@@ -2,6 +2,7 @@
 name: "reference-organizer"
 description: "获取链接的元数据并生成不同级别的格式化参考文献（博客、白皮书、论文）。当用户需要整理参考文献、生成引用或格式化参考链接时调用此技能。"
 ---
+> English version: [SKILL-en.md](SKILL-en.md)
 
 # Reference Organizer (参考文献整理助手)
 

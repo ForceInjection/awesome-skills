@@ -1,8 +1,7 @@
 ---
 name: "md-summarizer"
-description: "分析和总结指定的本地 Markdown 文件，并输出结构化的中文总结。当用户请求总结、分析或提取本地 Markdown 文档信息时调用此技能。"
+description: "Analyze and summarize the specified local Markdown files, outputting a structured Chinese summary. Invoke this skill when the user requests a summary, analysis, or extraction of information from local Markdown documents."
 ---
-> English version: [SKILL-en.md](SKILL-en.md)
 
 # Markdown Summarizer
 

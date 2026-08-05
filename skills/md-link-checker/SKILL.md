@@ -2,6 +2,7 @@
 name: "md-link-checker"
 description: "检查 Markdown 文件中的本地和外部链接有效性。当用户需要验证、检查 Markdown 文档或项目的链接可访问性时调用此技能。"
 ---
+> English version: [SKILL-en.md](SKILL-en.md)
 
 # Markdown 链接检查 (md-link-checker)
 

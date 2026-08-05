@@ -2,6 +2,7 @@
 name: "dir-organizer"
 description: "整理和优化项目目录结构。当用户请求整理目录、分类文件、清理无用文件或重构文件夹结构时调用此技能。"
 ---
+> English version: [SKILL-en.md](SKILL-en.md)
 
 # 目录整理技能
 
