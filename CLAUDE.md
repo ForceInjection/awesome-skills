@@ -30,7 +30,7 @@ SKILL=<skill-name> node ./unit-test/evals/agent/checks.js \
 
 Every skill follows this standard directory layout:
 
-```
+```text
 skill-name/
 ├── SKILL.md       # Core instruction file (filename MUST be uppercase)
 ├── scripts/       # Executable scripts (Python, Shell)
@@ -49,6 +49,7 @@ Each `SKILL.md` starts with YAML frontmatter. The `description` field is the sol
 ### Progressive disclosure
 
 Skills use a three-layer loading strategy to avoid context overflow:
+
 1. **Metadata layer** (always loaded): Skill name + description only.
 2. **Core instruction layer** (loaded on trigger): Full `SKILL.md` body.
 3. **Reference layer** (loaded as needed): Files in `references/`.
@@ -58,7 +59,7 @@ Skills use a three-layer loading strategy to avoid context overflow:
 The `unit-test/` framework has two layers:
 
 1. **Static tests** (`unit-test/tests/run_static.py`): No LLM dependency. Validates link formats, image paths, naming conventions, and sensitive info sanitization. These are CI must-pass items. Currently only `doc-reviewer` and `md-translator` have static checks; other skills print a warning and exit 0.
-2. **End-to-end tests** (`unit-test/opencode-skill-eval.sh`): Runs the skill through OpenCode CLI, captures JSONL event traces, and asserts behavior (tool call sequences, output artifacts, token usage).
+2. **End-to-end tests** (`unit-test/opencode-skill-eval.sh`): Runs the skill through OpenCode CLI, captures JSONL event traces, and asserts behavior (tool call sequences, output artifacts, token usage). The pipeline writes artifacts to `unit-test/evals/artifacts/<skill-name>.jsonl` and reports to `unit-test/evals/reports/<skill-name>/`. The authoritative guide for writing and running eval tests is `unit-test/skill-eval-minimal-guide.md`.
 
 Test fixtures live in `unit-test/fixtures/<skill-name>/`, per-skill configs in `unit-test/skills/<skill-name>/config.sh`, and static check rules in `unit-test/tests/<skill-name>/checks.py`.
 
@@ -75,3 +76,13 @@ The `code-reader` and `project-analyzer` skills output `SKILL.md` files rather t
 
 - **`docs/`**: Deep-dive analysis articles (`gstack-deep-dive.md`, `google-skill-patern.md`, `superpowers-deep-dive.md`) — educational content about Agent Skill design patterns, not skills themselves.
 - **`examples/`**: End-to-end usage examples for skills that produce visual or rendered output. Currently hosts `editorial-card-designer` examples (HTML source + rendered PNG). New skills with visual output should follow this pattern.
+
+### Adding a new skill
+
+1. Create `skills/<kebab-case-noun-doer>/` (e.g. `pdf-translator`, not `translate-pdf`) with `SKILL.md` (filename MUST be uppercase) plus `scripts/` and `references/` as needed.
+2. `SKILL.md` starts with YAML frontmatter; `description` follows **[Function] + [Trigger Scenario] + [Keywords]** — it is the sole trigger mechanism.
+3. Write `SKILL.md` in English by default; Chinese only when the target domain requires it (as with `dir-organizer` and `doc-reviewer`).
+4. Register the skill in two places: README.md §1 (Chinese intro section, numbered sequentially) and the skill matrix in AGENTS.md.
+5. If the skill needs testing, add fixtures to `unit-test/fixtures/<skill-name>/`, a config to `unit-test/skills/<skill-name>/config.sh`, and static checks to `unit-test/tests/<skill-name>/checks.py` wired into `run_static.py`.
+6. Visual-output skills should also deposit a rendered example in `examples/`.
+7. Run `bash ./sync.sh` to propagate the skill to `~/.claude/skills`, `~/.trae/skills`, and `~/.qoder/skills` (this is the standard local distribution mechanism).
