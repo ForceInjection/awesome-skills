@@ -32,7 +32,7 @@ python3 -m venv venv
 source venv/bin/activate
 
 # 安装相关依赖
-pip install "markitdown[pptx]" Pillow
+pip install "markitdown[pptx]" Pillow defusedxml
 ```
 
 ## 3. 读取内容
@@ -80,5 +80,6 @@ pdftoppm -jpeg -r 150 output_dir/presentation.pdf output_dir/slide
 
 - **`markitdown[pptx]`**：用于文本提取。
 - **`Pillow`**：用于生成缩略图网格。
-- **LibreOffice (`soffice`)**：用于 PDF 转换（通过 `office/soffice.py` 在沙箱环境中自动配置）。
+- **`defusedxml`**：用于安全的 XML 解析（缩略图幻灯片信息提取与解包操作）。
+- **LibreOffice (`soffice`)**：用于 PDF 转换（通过 `office/soffice.py` 在沙箱环境中自动配置；`run_soffice` 会自动注入临时用户 profile，避免沙箱中 "User installation could not be completed" 崩溃）。
 - **Poppler (`pdftoppm`)**：用于将 PDF 转换为图像。
