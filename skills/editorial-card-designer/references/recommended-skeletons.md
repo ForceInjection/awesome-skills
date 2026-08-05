@@ -5,6 +5,7 @@ They are intentionally generic and should be adapted to the user's content inste
 
 ## Shared Principles
 
+- Read `content-fit.md` first and choose a skeleton from both density and ratio.
 - If the user already provides a title, use it as the main headline by default.
 - Put interpretation and editorial framing into subtitle, summary, or side modules.
 - Do not inject creator branding, avatars, or personal signatures unless explicitly requested.

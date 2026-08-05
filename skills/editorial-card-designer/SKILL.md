@@ -42,7 +42,7 @@ Always preserve three output stages unless the user explicitly asks to skip one:
 
 ### 1. Analyze Content Density
 
-Choose layout strategy from the content itself:
+Read [references/content-fit.md](references/content-fit.md). Inventory semantic units, estimate density, and choose layout strategy from both density and ratio:
 
 - Use "big-character" composition when content is sparse and a single phrase, number, or hook can carry the page.
 - Use a two-column or three-column editorial grid when content is dense and needs stronger hierarchy.
@@ -51,6 +51,8 @@ Choose layout strategy from the content itself:
 - Match structure to content type:
   - Ranking / recommendation content: allow asymmetric hero + structured list.
   - Tutorial / analysis / interpretation content: group into overview, core judgment, interpretation, boundary, and conclusion.
+- Write a short space-allocation plan before final HTML. Assign approximate area to hero, primary module, support area, and footer.
+- Do not use the starter template's current arrangement as evidence that it is the right skeleton.
 
 Before compressing content, first change the layout skeleton.
 
@@ -83,6 +85,8 @@ Key heuristics:
 - **`4:3`** — asymmetric left-right; heavy primary + narrower judgment stack + thin footer.
 - **`3:4`** — cover-style hero + mixed-scale modules; avoid a single narrow column.
 - **`1:1`** — one heavy quadrant + supporting blocks; avoid four equal tiles.
+- **`16:9`** — horizontal hero plus one structured support area; comfortable capacity is roughly two to five primary-point equivalents.
+- **`9:16`** — staged vertical reading path with a compact hero, one dominant middle module, and grouped lower supports; avoid repeating same-height modules down the full canvas.
 - **Wide covers (`3:1`, `5:2`, `2.35:1`)** — fewer, larger blocks; aggressive paragraph reduction.
 
 ### 4. Build HTML for Rendering
@@ -122,13 +126,17 @@ At the same time, preserve basic browser preview behavior:
 Use these structural heuristics when composing the card:
 
 - Fill the proportion intentionally. Rebalance layout according to width / height instead of scaling one static template.
+- In `4:3` landscape, asymmetric left-right layouts often work best for dense analytical content.
+- In `3:4` portrait, use portrait-friendly mixed grids rather than a single narrow column.
 - Keep title, subtitle, summary, and modules separated by explicit rows or bands so they do not collide.
 - When the user supplied the title, protect it as a first-class anchor. Expand the layout around it before you consider shortening or paraphrasing it.
 - If using numbered modules, keep numbers visually weak enough that they never collide with titles.
 - If a section becomes visually monotonous, introduce contrast through hierarchy changes rather than decorative clutter.
 - Let big modules carry richer copy than small modules. Do not give every block the same amount of text.
 - Do not use `1fr` rows or columns in ways that can create large accidental voids near the footer or push important content to the canvas edge.
+- Do not stretch tinted or dark panels to fill unused height. Empty space inside a colored panel reads as an unfinished module, not breathing room.
 - If the lower half feels empty, first rebalance module hierarchy or add a stronger bottom band before shrinking text or stretching containers.
+- On high-density cards, do not leave a large plain-paper gap between the final module and footer. Reorganize the modules or add a compact conclusion band.
 - If a lower module is visually large, give it enough internal structure or a secondary judgment line so it earns the area it occupies.
 
 ### 5. Capture the Screenshot
@@ -152,6 +160,13 @@ Before running the script:
 - Ensure the HTML uses a fixed-size design canvas that matches the chosen ratio preset.
 - Ensure the viewport composition already matches the requested ratio.
 - Ensure fallback fonts are declared so layout remains stable even if font downloads fail during headless rendering.
+
+After running the script:
+
+- Open and inspect the rendered PNG, not only the HTML source.
+- Apply every render check in [references/content-fit.md](references/content-fit.md).
+- Revise the skeleton before changing typography or shortening copy.
+- Do not deliver the first render when it contains unexplained empty regions, crowded modules, or cropped content.
 
 If the screenshot has bottom whitespace, improve the layout first. Only consider a slight aspect-ratio deviation as a last resort, and only when the user explicitly accepts it.
 
@@ -195,6 +210,10 @@ Use this as the canonical prompt spec when the user wants the latest validated e
 
 Use this when you want ratio-specific reusable skeletons rather than one-off composition ideas.
 
+### `references/content-fit.md`
+
+Open this before choosing a skeleton and again after rendering. It defines semantic-unit density, ratio capacity, space allocation, and rejection checks for empty or crowded cards.
+
 ### `scripts/capture_card.sh`
 
 Run this to capture a PNG from a local HTML file using a supported ratio preset.
@@ -224,3 +243,6 @@ Before finalizing HTML or PNG, explicitly reject the result if any of these happ
 - The PNG feels meaningfully emptier than the HTML layout intent.
 - The rendered PNG uses a different reading rhythm than the HTML because remote fonts failed and no local fallback stack was provided.
 - The footer or bottom band is cropped, or a large bottom whitespace strip appears because the grid sizing pushed content away from the lower edge.
+- The bottom-most meaningful content ends above 80% of the canvas height without an intentional low-density cover composition.
+- One unexplained empty region occupies roughly more than 20% of the canvas.
+- The chosen ratio is over capacity and the card was not grouped, summarized, or split.
