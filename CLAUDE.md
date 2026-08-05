@@ -59,7 +59,7 @@ Skills use a three-layer loading strategy to avoid context overflow:
 The `unit-test/` framework has two layers:
 
 1. **Static tests** (`unit-test/tests/run_static.py`): No LLM dependency. Validates link formats, image paths, naming conventions, and sensitive info sanitization. These are CI must-pass items. Currently only `doc-reviewer` and `md-translator` have static checks; other skills print a warning and exit 0.
-2. **End-to-end tests** (`unit-test/opencode-skill-eval.sh`): Runs the skill through OpenCode CLI, captures JSONL event traces, and asserts behavior (tool call sequences, output artifacts, token usage). The pipeline writes artifacts to `unit-test/evals/artifacts/<skill-name>.jsonl` and reports to `unit-test/evals/reports/<skill-name>/`. The authoritative guide for writing and running eval tests is `unit-test/skill-eval-minimal-guide.md`.
+2. **End-to-end tests** (`unit-test/opencode-skill-eval.sh`): Runs the skill through OpenCode CLI, captures JSONL event traces, and asserts behavior (tool call sequences, output artifacts, token usage). The pipeline writes artifacts to `unit-test/evals/artifacts/<skill-name>.jsonl` and reports to `unit-test/evals/reports/<skill-name>/`. The authoritative guide for writing and running eval tests is `unit-test/skill-eval-minimal-guide-en.md` (English; the Chinese original is `unit-test/skill-eval-minimal-guide.md`).
 
 Test fixtures live in `unit-test/fixtures/<skill-name>/`, per-skill configs in `unit-test/skills/<skill-name>/config.sh`, and static check rules in `unit-test/tests/<skill-name>/checks.py`.
 
