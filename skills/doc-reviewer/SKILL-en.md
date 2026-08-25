@@ -1,6 +1,6 @@
 ---
 name: doc-reviewer
-description: Review technical documents. Supports four independent review types: outline review (checks the table of contents and structural logic), content review (checks text accuracy and code quality), assets & links review (validates link and reference compliance), and format review (proofreads purely visual typography and punctuation). Use when the user requests a review or revision of a Markdown document.
+description: Review technical documents. Supports four independent review types: outline review (checks the table of contents and structural logic), content review (checks text accuracy and code quality), assets & links review (validates link and reference compliance), and format review (proofreads purely visual typography and punctuation), optionally followed by humanizer-zh to remove AI writing traces. Use ONLY when the user requests a review or revision of a Markdown document; pure humanization requests go to humanizer-zh.
 ---
 
 # Document Review
@@ -25,6 +25,9 @@ When performing a review, the Agent should select one or more of the following t
 4. **Format Review**
    - **Role**: Typography Proofreader
    - **Action**: Quickly scan the text, focusing on purely visual typography and punctuation standards. These issues typically support silent/automatic one-click fixes.
+5. **AI-Slop Removal** (optional)
+   - **Role**: Copy Editor
+   - **Action**: Enable when the user explicitly asks to "humanize", "remove AI traces", or "make the article read like a human wrote it". Invoke the `humanizer-zh` skill (load its SKILL.md via the Skill tool) and scan/rewrite the text against its 35 AI writing tells (inflated claims, sales language, stock AI words, dash abuse, forced groups of three, etc.), producing natural human prose without changing meaning or inventing facts. Best run after the content review, once the user has confirmed the issue list.
 
 ---
 
@@ -36,6 +39,7 @@ When executing a specific review type, the Agent loads the corresponding detaile
 - **Content Review**: Load `references/content-review-rules-en.md`; focus on text quality, technical accuracy, and code logic.
 - **Assets & Links Review**: Load `references/assets-review-rules-en.md`; validate the validity and compliance of links, images, and references.
 - **Format Review**: Load `references/format-review-rules-en.md`; focus on purely visual typography and Markdown syntax standards.
+- **AI-Slop Removal**: Invoke the `humanizer-zh` skill (via the Skill tool); its SKILL.md's list of 35 AI writing tells and rewrite rules are the authority. Ask the user for the target style first (neutral edit / inject personality / minimal change).
 
 ---
 
@@ -79,3 +83,16 @@ A total of X issues were found.
 > ### Summary
 >
 > A total of 2 issues were found. Would you like me to apply these changes directly?
+
+**User**: "After reviewing `blog.md`, please also humanize it."
+
+**Agent**:
+(First run the content review and output the report; after the user confirms the issue list, invoke `humanizer-zh` via the Skill tool)
+(Load humanizer-zh, ask for the target style first, then scan and rewrite against its 35 AI writing tells)
+
+> **AI-slop removal complete**
+>
+> - Removed 6 stock AI words ("additionally", "showcases", "empowers", etc.)
+> - Broke up 2 forced groups of three
+> - Removed 3 dash abuses
+> - All facts, data, and links preserved; 1 remaining ambiguous sentence listed for your confirmation

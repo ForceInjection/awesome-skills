@@ -33,6 +33,7 @@ The skills in this category specialize in processing plain text, Markdown docume
 - **Markdown Summarizer (`md-summarizer`)**: Analyzes local Markdown files and outputs structured Chinese reports containing core summaries, deep dives, and key points, with support for multi-file comparative analysis.
 - **Web Content Downloader (`web-content-downloader`)**: Fetches external web pages, strips redundant HTML, and converts them into standard Markdown, while also supporting intelligent extraction and localization of images.
 - **Markdown Translator (`md-translator`)**: Translates local documents into target languages while strictly preserving the original layout and formatting.
+- **Chinese AI-Slop Remover (`humanizer-zh`)**: Based on Wikipedia's "Signs of AI writing" guide, detects and fixes 35 AI writing patterns (inflated claims, sales language, stock AI words, dash abuse, rule-of-three structures, etc.), rewriting AI-sounding text into natural human prose while strictly preserving the original meaning and never inventing facts.
 - **Technical Article Outline Planner (`tech-outline-planner`)**: Uses a combined narrative structure (Context-first + Process narrative) to design "architecture-review-grade" outlines for high-quality technical articles.
 
 ### 2.2 Code and Engineering Assistance

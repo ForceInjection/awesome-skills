@@ -2,26 +2,28 @@
 
 ## 目录
 
-- [1. 项目简介](#1-项目简介)
-- [2. 设计哲学：组合压倒内容](#2-设计哲学组合压倒内容)
-- [3. 核心模式深度解析](#3-核心模式深度解析)
-  - [3.1 grilling：设计树与前沿轮次访谈](#31-grilling设计树与前沿轮次访谈)
-  - [3.2 wayfinder：决策票地图与战争迷雾](#32-wayfinder决策票地图与战争迷雾)
-  - [3.3 tdd：seam 治理下的红绿循环](#33-tddseam-治理下的红绿循环)
-  - [3.4 diagnosing-bugs：回路即技能](#34-diagnosing-bugs回路即技能)
-  - [3.5 writing-for-agents：自我指涉的元技能](#35-writing-for-agents自我指涉的元技能)
-  - [3.6 codebase-design：深模块词汇底座](#36-codebase-design深模块词汇底座)
-- [4. 技能架构分析：分层组合系统](#4-技能架构分析分层组合系统)
-  - [4.1 用户调用与模型调用：原则化的切分](#41-用户调用与模型调用原则化的切分)
-  - [4.2 CONTEXT.md：共享词汇层](#42-contextmd共享词汇层)
-  - [4.3 进程闸门与完成标准：普遍语法](#43-进程闸门与完成标准普遍语法)
-  - [4.4 sub-agent 派发：上下文经济观](#44-sub-agent-派发上下文经济观)
-- [5. 元工程实践：把仓库当产品管理](#5-元工程实践把仓库当产品管理)
-  - [5.1 双轨分发：插件订阅与可编辑复制](#51-双轨分发插件订阅与可编辑复制)
-  - [5.2 仓库治理：CLAUDE.md、ADR 与版本管理](#52-仓库治理claudemdadr-与版本管理)
-- [6. 与 awesome-skills 的对比](#6-与-awesome-skills-的对比)
-- [7. 可借鉴的结论](#7-可借鉴的结论)
-- [8. 快速开始：5 分钟上手](#8-快速开始5-分钟上手)
+- [mattpocock/skills 深度解析：把工程纪律封装成可组合的 Agent 技能](#mattpocockskills-深度解析把工程纪律封装成可组合的-agent-技能)
+  - [目录](#目录)
+  - [1. 项目简介](#1-项目简介)
+  - [2. 设计哲学：组合压倒内容](#2-设计哲学组合压倒内容)
+  - [3. 核心模式深度解析](#3-核心模式深度解析)
+    - [3.1 grilling：设计树与前沿轮次访谈](#31-grilling设计树与前沿轮次访谈)
+    - [3.2 wayfinder：决策票地图与战争迷雾](#32-wayfinder决策票地图与战争迷雾)
+    - [3.3 tdd：seam 治理下的红绿循环](#33-tddseam-治理下的红绿循环)
+    - [3.4 diagnosing-bugs：回路即技能](#34-diagnosing-bugs回路即技能)
+    - [3.5 writing-for-agents：自我指涉的元技能](#35-writing-for-agents自我指涉的元技能)
+    - [3.6 codebase-design：深模块词汇底座](#36-codebase-design深模块词汇底座)
+  - [4. 技能架构分析：分层组合系统](#4-技能架构分析分层组合系统)
+    - [4.1 用户调用与模型调用：原则化的切分](#41-用户调用与模型调用原则化的切分)
+    - [4.2 CONTEXT.md：共享词汇层](#42-contextmd共享词汇层)
+    - [4.3 进程闸门与完成标准：普遍语法](#43-进程闸门与完成标准普遍语法)
+    - [4.4 sub-agent 派发：上下文经济观](#44-sub-agent-派发上下文经济观)
+  - [5. 元工程实践：把仓库当产品管理](#5-元工程实践把仓库当产品管理)
+    - [5.1 双轨分发：插件订阅与可编辑复制](#51-双轨分发插件订阅与可编辑复制)
+    - [5.2 仓库治理：CLAUDE.md、ADR 与版本管理](#52-仓库治理claudemdadr-与版本管理)
+  - [6. 与 awesome-skills 的对比](#6-与-awesome-skills-的对比)
+  - [7. 可借鉴的结论](#7-可借鉴的结论)
+  - [8. 快速开始：5 分钟上手](#8-快速开始5-分钟上手)
 
 ---
 
@@ -90,7 +92,7 @@ Call the Skill tool twice, for "grilling" and "domain-modeling".
 
 一次 `grilling` 对话长这样（问题编号 + 推荐答案，一轮抛出一整片前沿）：
 
-```
+```text
 ❓ **Q1** - **目标范围**：这个改动要覆盖哪些功能，明确排除哪些？
 
 ➡️ 建议先只做核心流程，边缘场景留到第二期
@@ -122,7 +124,7 @@ Call the Skill tool twice, for "grilling" and "domain-modeling".
 - **三个反模式**，每个带判定信号：
   - **Implementation-coupled**（实现耦合）：mock 内部协作者、测私有方法、或通过旁路验证（查数据库而不是走接口）。判定信号：重构后行为未变但测试碎了。
   - **Tautological**（同义反复）：期望值用与代码相同的方式重算（`expect(add(a, b)).toBe(a + b)`）。期望值必须来自独立的事实源。
-  - **Horizontal slicing**（水平切片）：先写完所有测试再写实现。批量测试验证的是*想象中*的行为——你测试了事物的形状而不是面向用户的行为。要用**垂直切片**：一个测试 → 一个实现 → 重复，每个测试都是回应上一轮反馈的**曳光弹**（tracer bullet）。
+  - **Horizontal slicing**（水平切片）：先写完所有测试再写实现。批量测试验证的是**想象中**的行为——你测试了事物的形状而不是面向用户的行为。要用**垂直切片**：一个测试 → 一个实现 → 重复，每个测试都是回应上一轮反馈的**曳光弹**（tracer bullet）。
 - **重构不属于循环**：重构被显式划给 `code-review` 阶段，防止红绿循环被稀释。
 - **跨技能组合**：接口形状本身存疑时（模块该多深、seam 该在哪），调用 `codebase-design` 获取词汇——"a reference to consult, not a session to run"（是供查阅的参考，不是要跑一遍的会话）。
 
@@ -145,7 +147,7 @@ Call the Skill tool twice, for "grilling" and "domain-modeling".
 - **回路完成标准是可勾选清单**：Red-capable（能捕获这个具体 bug 的确切症状）/ Deterministic（确定性）/ Fast（秒级）/ Agent-runnable（agent 可无人值守运行）。
 - **收紧回路**：把回路当产品对待——能更快吗？信号更尖锐吗？更确定吗？"30 秒的 flaky 回路比没有回路好不了多少；2 秒的确定性回路是调试超能力。"
 - **非确定性 bug**：目标不是干净的复现而是**更高的复现率**——触发 100 次、并行化、加压力、注入 sleep。"50% 概率的 flaky bug 可以调试；1% 的不行。"
-- **假设必须可证伪**，按固定格式陈述："If <X> is the cause, then <changing Y> will make the bug disappear." 无法陈述预测的假设是 vibe（感觉），丢弃或锐化。排序后的假设列表**先展示给用户**再测试——用户往往一句话就重排优先级。
+- **假设必须可证伪**，按固定格式陈述："If \<X\> is the cause, then \<changing Y\> will make the bug disappear." 无法陈述预测的假设是 vibe（感觉），丢弃或锐化。排序后的假设列表**先展示给用户**再测试——用户往往一句话就重排优先级。
 - **脱敏纪律**：展示的一切先 REDACTED；调试日志带唯一前缀 `[DEBUG-a4f2]`，清理是一个 grep。
 - **"没有正确的 seam 本身就是发现"**：如果找不到合适的回归测试 seam，那就是发现——代码库架构阻止了 bug 被锁死，显式标记并桥接到 `improve-codebase-architecture`。
 
@@ -157,7 +159,7 @@ Call the Skill tool twice, for "grilling" and "domain-modeling".
 - **两种载荷**：Context load（常驻材料的 token 成本）与 Cognitive load（人类的认知负担——人是索引）。指针逃掉 context load，代价是指针自己的一行；没有指针的材料完全骑在 cognitive load 上。
 - **信息层级阶梯**：in-file step（主要层，agent 按顺序执行的动作）→ in-file reference（按需查阅的定义/规则）→ disclosed reference（推到独立文件、由指针到达）。渐进式披露是**走下阶梯**：分支是衡量披露的最干净测试——所有分支都需要的留在正文，只有部分分支到达的推给指针。
 - **Leading words（引导词）**：模型预训练中已存在的紧凑概念（_tight_、_red_、_fog of war_、_tracer bullets_），以 token 而非句子重复，招募模型已有的先验来锚定行为。"fast, deterministic, low-overhead" → _tight_；"a loop you believe in" → _red_（一个模糊的闸门变成二值的可观察状态）。造新词要付定义 token，先找现成的词。
-- **否定是失败模式**："别想大象"，大象就是全部——禁令把被禁行为拖进上下文，使它*更*可用。正面陈述目标行为；禁令只保留在无法正面表述的硬护栏上，且必须配正面目标。
+- **否定是失败模式**："别想大象"，大象就是全部——禁令把被禁行为拖进上下文，使它**更**可用。正面陈述目标行为；禁令只保留在无法正面表述的硬护栏上，且必须配正面目标。
 - **完成标准（completion criteria）**：Clarity（agent 能否区分完成与未完成——模糊的界限邀请"过早完成"）与 Demand（要求多高——"every modified model accounted for" 强制彻底的工作）。
 - **修剪纪律**：单一事实源（去重复）、环境是事实源（`package.json`、`--help` 是 lookup，重述它们的是缓存）、相关性检查（防 sediment——"添加感觉安全、删除感觉冒险"的默认命运）、**no-op 测试**（"这条指令相对默认行为改变行为吗？不改变就整句删除，而不是删词"）。
 
@@ -283,14 +285,19 @@ sub-agent 派发是仓库的标准操作，对"什么该进 sub-agent 窗口"有
 想直接体验这个仓库，不需要先读完上文：
 
 1. **装插件**（Claude Code 用户，30 秒）：
+
    ```bash
    claude plugins install mattpocock-skills
    ```
+
    或想拥有可编辑副本（适用于 Codex 等任意 harness）：
+
    ```bash
    npx skills add mattpocock/skills
    ```
+
    **两条路径二选一，不要都装**（会得到每个技能的两份）。
+
 2. **跑一次安装引导**（每个仓库一次）：`/setup-matt-pocock-skills`——回答 issue tracker、triage 标签、文档目录三个问题。只用 productivity 技能可跳过。
 3. **5 分钟实验**：对你手头一个模糊的想法（新功能、重构、一篇文章）跑 `/grill-me`——体会"设计树前沿轮次"的对齐访谈（§3.1）。这是作者的招牌技能。
 4. **推荐试用的技能**，按场景：

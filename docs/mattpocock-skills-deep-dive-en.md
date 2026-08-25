@@ -2,26 +2,28 @@
 
 ## Table of Contents
 
-- [1. Project Overview](#1-project-overview)
-- [2. Design Philosophy: Composition Over Content](#2-design-philosophy-composition-over-content)
-- [3. Core Patterns Deep Dive](#3-core-patterns-deep-dive)
-  - [3.1 grilling: Design Trees and Frontier Rounds](#31-grilling-design-trees-and-frontier-rounds)
-  - [3.2 wayfinder: Decision-Ticket Maps and Fog of War](#32-wayfinder-decision-ticket-maps-and-fog-of-war)
-  - [3.3 tdd: Red-Green Governed by Seams](#33-tdd-red-green-governed-by-seams)
-  - [3.4 diagnosing-bugs: The Loop Is the Skill](#34-diagnosing-bugs-the-loop-is-the-skill)
-  - [3.5 writing-for-agents: A Self-Referential Meta-Skill](#35-writing-for-agents-a-self-referential-meta-skill)
-  - [3.6 codebase-design: The Shared Vocabulary Foundation](#36-codebase-design-the-shared-vocabulary-foundation)
-- [4. Skill Architecture: A Layered Composition System](#4-skill-architecture-a-layered-composition-system)
-  - [4.1 User-Invoked vs Model-Invoked: A Principled Split](#41-user-invoked-vs-model-invoked-a-principled-split)
-  - [4.2 CONTEXT.md: The Shared Vocabulary Layer](#42-contextmd-the-shared-vocabulary-layer)
-  - [4.3 Process Gates and Completion Criteria: The Common Grammar](#43-process-gates-and-completion-criteria-the-common-grammar)
-  - [4.4 Sub-Agent Dispatch: A Context Economy](#44-sub-agent-dispatch-a-context-economy)
-- [5. Meta-Engineering: Managing the Repo as a Product](#5-meta-engineering-managing-the-repo-as-a-product)
-  - [5.1 Dual-Track Distribution: Plugin Subscription vs Editable Copy](#51-dual-track-distribution-plugin-subscription-vs-editable-copy)
-  - [5.2 Repo Governance: CLAUDE.md, ADRs, and Versioning](#52-repo-governance-claudemd-adrs-and-versioning)
-- [6. Comparison with awesome-skills](#6-comparison-with-awesome-skills)
-- [7. Takeaways](#7-takeaways)
-- [8. Quick Start: 5 Minutes to First Use](#8-quick-start-5-minutes-to-first-use)
+- [Deep Dive: mattpocock/skills — Packaging Engineering Discipline as Composable Agent Skills](#deep-dive-mattpocockskills--packaging-engineering-discipline-as-composable-agent-skills)
+  - [Table of Contents](#table-of-contents)
+  - [1. Project Overview](#1-project-overview)
+  - [2. Design Philosophy: Composition Over Content](#2-design-philosophy-composition-over-content)
+  - [3. Core Patterns Deep Dive](#3-core-patterns-deep-dive)
+    - [3.1 grilling: Design Trees and Frontier Rounds](#31-grilling-design-trees-and-frontier-rounds)
+    - [3.2 wayfinder: Decision-Ticket Maps and Fog of War](#32-wayfinder-decision-ticket-maps-and-fog-of-war)
+    - [3.3 tdd: Red-Green Governed by Seams](#33-tdd-red-green-governed-by-seams)
+    - [3.4 diagnosing-bugs: The Loop Is the Skill](#34-diagnosing-bugs-the-loop-is-the-skill)
+    - [3.5 writing-for-agents: A Self-Referential Meta-Skill](#35-writing-for-agents-a-self-referential-meta-skill)
+    - [3.6 codebase-design: The Shared Vocabulary Foundation](#36-codebase-design-the-shared-vocabulary-foundation)
+  - [4. Skill Architecture: A Layered Composition System](#4-skill-architecture-a-layered-composition-system)
+    - [4.1 User-Invoked vs Model-Invoked: A Principled Split](#41-user-invoked-vs-model-invoked-a-principled-split)
+    - [4.2 CONTEXT.md: The Shared Vocabulary Layer](#42-contextmd-the-shared-vocabulary-layer)
+    - [4.3 Process Gates and Completion Criteria: The Common Grammar](#43-process-gates-and-completion-criteria-the-common-grammar)
+    - [4.4 Sub-Agent Dispatch: A Context Economy](#44-sub-agent-dispatch-a-context-economy)
+  - [5. Meta-Engineering: Managing the Repo as a Product](#5-meta-engineering-managing-the-repo-as-a-product)
+    - [5.1 Dual-Track Distribution: Plugin Subscription vs Editable Copy](#51-dual-track-distribution-plugin-subscription-vs-editable-copy)
+    - [5.2 Repo Governance: CLAUDE.md, ADRs, and Versioning](#52-repo-governance-claudemd-adrs-and-versioning)
+  - [6. Comparison with awesome-skills](#6-comparison-with-awesome-skills)
+  - [7. Takeaways](#7-takeaways)
+  - [8. Quick Start: 5 Minutes to First Use](#8-quick-start-5-minutes-to-first-use)
 
 ---
 
@@ -90,7 +92,7 @@ The payoff: methodology is written once, lives in one place (the primitive), and
 
 A `grilling` session looks like this (numbered questions with recommended answers, the whole frontier asked in one round):
 
-```
+```text
 ❓ **Q1** - **Scope**: Which features does this change cover, and what is explicitly out?
 
 ➡️ I'd suggest starting with the core flow only, deferring edge cases to phase two
@@ -101,8 +103,6 @@ A `grilling` session looks like this (numbered questions with recommended answer
 ```
 
 (The ADRs mentioned in grill-with-docs's description are Architecture Decision Records — short documents recording "why this design", so future maintainers without context don't mischange it.)
-
-### 3.2 wayfinder: Decision-Ticket Maps and Fog of War
 
 ### 3.2 wayfinder: Decision-Ticket Maps and Fog of War
 
@@ -147,7 +147,7 @@ A `grilling` session looks like this (numbered questions with recommended answer
 - **Completion criterion is a checkable checklist**: Red-capable (drives the actual bug path and asserts the user's exact symptom) / Deterministic / Fast (seconds) / Agent-runnable (unattended).
 - **Tighten the loop**: treat it as a product — faster? sharper signal? more deterministic? "A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight, a debugging superpower."
 - **Non-deterministic bugs**: the goal is not a clean repro but a **higher reproduction rate** — loop 100×, parallelize, add stress, inject sleeps. "A 50%-flake bug is debuggable; 1% is not."
-- **Hypotheses must be falsifiable**, stated in a fixed format: "If <X> is the cause, then <changing Y> will make the bug disappear." A predictionless hypothesis is a vibe: discard or sharpen it. Show the ranked list **to the user before testing** — they often re-rank it with one sentence.
+- **Hypotheses must be falsifiable**, stated in a fixed format: "If \<X\> is the cause, then \<changing Y\> will make the bug disappear." A predictionless hypothesis is a vibe: discard or sharpen it. Show the ranked list **to the user before testing** — they often re-rank it with one sentence.
 - **Redaction discipline**: redact every secret first; tag debug logs with a unique prefix (`[DEBUG-a4f2]`) so cleanup is a single grep.
 - **"No correct seam is itself the finding"**: if the only available regression-test seam is too shallow, that's a discovery — the codebase architecture is preventing the bug from being locked down. Flag it and bridge to `improve-codebase-architecture`.
 
@@ -285,14 +285,19 @@ Each takeaway comes with a **first step** — actionable as soon as you finish r
 You don't need to read the whole article to try this repo:
 
 1. **Install the plugin** (Claude Code users, 30 seconds):
+
    ```bash
    claude plugins install mattpocock-skills
    ```
+
    Or get an editable copy (works with Codex and any harness):
+
    ```bash
    npx skills add mattpocock/skills
    ```
+
    **Pick one path — don't install both** (you'd get every skill twice).
+
 2. **Run the setup wizard once per repo**: `/setup-matt-pocock-skills` — answer three questions (issue tracker, triage labels, docs directory). Skippable if you only use the productivity skills.
 3. **5-minute experiment**: run `/grill-me` on a vague idea you have (a feature, a refactor, an article) and experience the design-tree/frontier interview (§3.1). This is the author's signature skill.
 4. **Skills worth trying first**, by scenario:
