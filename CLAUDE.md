@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a curated collection of 18 Agent Skills maintained by the "Force Injection" (原力注入) blogger. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
+This is a curated collection of 19 Agent Skills maintained by the "Force Injection" (原力注入) blogger. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
 
 Documentation is bilingual: `README.md`/`README-en.md` are the user-facing catalogs (Chinese and English), and `AGENTS.md`/`AGENTS-en.md` are the narrative project overviews. See the language conventions below.
 

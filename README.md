@@ -17,7 +17,7 @@
 
 ## 1. 核心技能介绍
 
-针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 18 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
+针对复杂代码阅读、项目逆向工程、规范驱动开发等工程挑战，本项目封装了 19 个独立智能体技能，旨在通过多角色协同解决实际开发瓶颈。
 
 | 技能                                                          | 功能                                                                                                                                                                          | 触发命令                                  |
 | ------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------- |
@@ -36,6 +36,7 @@
 | [`md-link-checker`](./skills/md-link-checker)                 | Markdown 链接检查器：多线程并发 + LRU 缓存，校验本地与外部链接连通性，兼容 HTML 图片标签                                                                                      | `/md-link-checker <target-file\|dir>`     |
 | [`drawio-designer`](./skills/drawio-designer)                 | Draw.io 架构图设计器：直接操作 `.drawio` XML，内置 AWS 官方图标映射与防重叠连线规则，headless 导出透明背景高分辨率 PNG                                                        | `/drawio-designer <diagram-file>`         |
 | [`pptx-reader`](./skills/pptx-reader)                         | PPTX 读取器：markitdown 文本提取 + XML 解包 + LibreOffice/Poppler 无损渲染为高分辨率图像，独立 venv 隔离系统依赖                                                              | `/pptx-reader <target-file>`              |
+| [`pptx-editor`](./skills/pptx-editor)                         | PPTX 编辑器：按 shape 名定位做 run 级文本替换与风格化新增元素，LibreOffice + pdftotext 渲染验证无出界、无碰撞                                                                 | `/pptx-editor <target-file>`              |
 | [`ontology`](./skills/ontology)                               | 知识图谱本体管理：16 种实体 / 15 种关系的类型化知识图谱，属性 / 基数 / 环路约束校验，JSONL 事件日志落盘审计，作为跨技能状态共享的记忆基座                                     | `python3 scripts/ontology.py <cmd>`       |
 | [`editorial-card-designer`](./skills/editorial-card-designer) | 杂志编辑式信息卡：现代杂志 + 瑞士国际主义风格的高密度 HTML 信息卡，8 种固定比例预设，headless Chrome 渲染为精确对齐的 PNG                                                     | 对话式工作流                              |
 | [`tech-outline-planner`](./skills/tech-outline-planner)       | 技术文章大纲规划：Context-first + Process narrative 组合叙事结构，遵循 Given-before-new 认知原则，产出"架构评审级"大纲                                                        | `/tech-outline-planner [主题/痛点/方案]`  |
