@@ -503,6 +503,26 @@ These details often carry the writer's voice. Keep them unless they hurt the mea
 
 Return the result required by [How to return the result](#how-to-return-the-result).
 
+## Quality scoring
+
+After writing the final version, self-check against the scoring table below (6 dimensions, 1-10 points each, total 60). Each dimension's criteria anchor to specific pattern numbers — when unsure, refer back to the cited section.
+
+| Dimension  | Criterion                                                                                                                          | Check against                               | Score |
+| ---------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------- | ----- |
+| Directness | States facts plainly or circles around them? 10 = straight to the point; 1 = padded with ceremony                                  | §1 inflated claims, §27 fake profundity     | /10   |
+| Fidelity   | Did the rewrite add or drop any fact, name, number, date, quote, or citation? 10 = every claim intact; 1 = invented or lost claims | What to do §2-§3                            | /10   |
+| Rhythm     | Do sentence lengths vary? 10 = short and long interleaved; 1 = mechanical sameness                                                 | §10 groups of three, §31 dramatic fragments | /10   |
+| Trust      | Respects the reader's intelligence (no explaining metaphors, no hand-holding)? 10 = lean and clear; 1 = over-explained             | §23 filler, §28 announcing                  | /10   |
+| Voice      | Matches the writing sample or expected register? 10 = reads like that writer; 1 = generic default voice                            | Match the writer's voice                    | /10   |
+| Economy    | Anything left to cut? 10 = no dead weight; 1 = filler and fluff everywhere                                                         | §23-§25 filler/qualifiers/endings           | /10   |
+| **Total**  |                                                                                                                                    |                                             | /60   |
+
+**Standards:**
+
+- 50-60: excellent — AI tells removed, all claims intact
+- 38-49: good — room to improve; revise the low-scoring dimensions
+- Below 38: revise — return to step 2 of the rewrite process
+
 ## Source
 
 This skill is based on [Wikipedia: Signs of AI writing](https://en.wikipedia.org/wiki/Wikipedia:Signs_of_AI_writing), maintained by WikiProject AI Cleanup. Its patterns come from reviews of AI-generated text on Wikipedia.
