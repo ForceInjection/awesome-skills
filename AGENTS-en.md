@@ -43,6 +43,7 @@ The following skills directly serve the software development process, version co
 - **Deep Code Reader (`code-reader`)**: Systematically reads unfamiliar codebases and generates reusable cognitive skill files through three-agent collaboration (technical writer, QA engineer, junior developer) and a closed-book examination-style verification loop.
 - **Directory Organizer (`dir-organizer`)**: Refactors and optimizes project directory structures in a standardized manner through a process of state collection, plan formulation, and user review, while automatically updating internal reference links.
 - **Update Submitter (`update-submitter`)**: Analyzes local code changes, intelligently groups them, and generates commit messages conforming to the Conventional Commits specification.
+- **Pre-commit Self-Reviewer (`self-review`)**: Turns pre-commit git diff self-review into a fixed checklist — confirm which repo/worktree holds the changes, read the full diff, run mechanical gate scripts, walk a six-class failure checklist, and test on suspicion (including mutation self-checks); verdicts fall into three tiers (fixed / pending / not-reproducible) with an audit trail.
 - **Spec-Driven Development Assistant (`openspec-assistant`)**: Supports agile development based on the OpenSpec framework, enabling collaboration among architects, developers, and testers.
 - **Agent Skill Reviewer (`agent-skill-reviewer`)**: Automatically reviews user-authored new skills to ensure their directory structures and prompts conform to best practices.
 

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is a curated collection of 19 Agent Skills maintained by the "Force Injection" (原力注入) blogger. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
+This is a curated collection of 20 Agent Skills maintained by the "Force Injection" (原力注入) blogger. It is **not** a traditional software application — there is no build step, no runtime, and no compilation. Each skill is a self-contained directory with a `SKILL.md` instruction file that AI coding agents (Claude Code, Trae, Cursor, Qoder, OpenCode) load on demand to gain specialized capabilities.
 
 Documentation is bilingual: `README.md`/`README-en.md` are the user-facing catalogs (Chinese and English), and `AGENTS.md`/`AGENTS-en.md` are the narrative project overviews. See the language conventions below.
 
@@ -84,7 +84,7 @@ The `code-reader` and `project-analyzer` skills output `SKILL.md` files rather t
 
 ### Supporting directories
 
-- **`docs/`**: Deep-dive analysis articles (`gstack-deep-dive.md`, `google-skill-patern.md`, `superpowers-deep-dive.md`, each with a `-en` English counterpart) — educational content about Agent Skill design patterns, not skills themselves.
+- **`docs/`**: Deep-dive analysis articles (`gstack-deep-dive.md`, `google-skill-patern.md`, `superpowers-deep-dive.md`, `mattpocock-skills-deep-dive.md`, each with a `-en` English counterpart) — educational content about Agent Skill design patterns, not skills themselves.
 - **`examples/`**: End-to-end usage examples for skills that produce visual or rendered output. Currently hosts `editorial-card-designer` examples (HTML source + rendered PNG). New skills with visual output should follow this pattern.
 
 ### Adding a new skill
@@ -95,4 +95,4 @@ The `code-reader` and `project-analyzer` skills output `SKILL.md` files rather t
 4. Register the skill in four places: the README.md §1 table, the README-en.md §1 table, and the skill matrices in AGENTS.md and AGENTS-en.md.
 5. If the skill needs testing, add fixtures to `unit-test/fixtures/<skill-name>/`, a config to `unit-test/skills/<skill-name>/config.sh`, and static checks to `unit-test/tests/<skill-name>/checks.py` wired into `run_static.py`.
 6. Visual-output skills should also deposit a rendered example in `examples/`.
-7. Run `bash ./sync.sh` to propagate the skill to `~/.claude/skills`, `~/.trae/skills`, and `~/.qoder/skills` (this is the standard local distribution mechanism).
+7. Run `bash ./sync.sh` to propagate the skill to `~/.claude/skills`, `~/.trae/skills`, and `~/.qoder/skills` (this is the standard local distribution mechanism). Skills listed in `SKIP_SKILLS` inside `sync.sh` are deliberately not synced — their hand-maintained private/local versions take precedence over the repo's public copies; do not remove them from the list.
